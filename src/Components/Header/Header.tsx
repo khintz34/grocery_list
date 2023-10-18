@@ -28,7 +28,7 @@ const Header = () => {
       <h1 className={styles.headerSize}>
         <Link href={"/"} className={styles.a}>
           {/* eslint-disable-next-line react/no-unescaped-entities */}
-          Nana's Memories
+          My Grocery List
         </Link>
       </h1>
       <label className={`${styles.hamburgerMenu}`}>
@@ -52,7 +52,7 @@ const Header = () => {
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              Home
+              My List
             </li>
           </Link>
           <Link
@@ -67,7 +67,7 @@ const Header = () => {
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              About
+              My Foods
             </li>
           </Link>
           <Link
@@ -82,7 +82,7 @@ const Header = () => {
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              Family Tree
+              My Recipes
             </li>
           </Link>
           <Link
