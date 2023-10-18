@@ -1,0 +1,51 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0vh 3vw 5vh 3vw;
+  background-color: var(--primary-background);
+}
+
+.relationship {
+  font-size: 2.6vh;
+  text-emphasis: bolder;
+  padding: 0 2vw;
+}
+
+.people {
+  font-size: 2.3vh;
+}
+
+.person {
+  margin-bottom: 1vh;
+}
+
+.memberContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5vh 1.5vw;
+  gap: 2vh;
+}
+
+.container {
+  border: 2px solid white;
+  border-radius: 20px;
+  overflow: hidden;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: height 2s ease;
+}
+
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+  max-height: 50vh;
+  padding: 2vw 3vh;
+}
