@@ -97,7 +97,7 @@ const Header = () => {
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              Add a Memory
+              Previous Lists
             </li>
           </Link>
         </ul>
