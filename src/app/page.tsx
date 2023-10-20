@@ -6,8 +6,11 @@ import { ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../assets/firebase";
 import { useState, useEffect } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
+import { FoodListObj } from "@/assets/FoodList";
 
 export default function Home() {
+  const [foodList, setFoodList] = useState<Array<FoodListObj>>();
+
   useEffect(() => {
     getUserData();
   }, []);
@@ -24,8 +27,8 @@ export default function Home() {
           const childData = childSnapShot.val();
           console.log(childData);
           let obj = {
-            name: childData.name,
-            category: childData.category,
+            name: childData.Name,
+            category: childData.Category,
           };
           addData(obj);
         });
@@ -35,12 +38,22 @@ export default function Home() {
       }
     );
 
-    function addData(obj: any) {
-      // displayArray.push(obj);
-      // setMemoryList([...displayArray]);
+    function addData(obj: FoodListObj) {
+      displayArray.push(obj);
+      setFoodList([...displayArray]);
       console.log(obj);
     }
   }
 
-  return <main className={styles.main}>test</main>;
+  return (
+    <main className={styles.main}>
+      {foodList?.map((val, index) => {
+        return (
+          <div key={`${val}-${index}`}>
+            {val.name} : {val.category}
+          </div>
+        );
+      })}
+    </main>
+  );
 }
