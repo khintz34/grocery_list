@@ -1,0 +1,33 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6rem;
+  min-height: 100vh;
+  background-color: var(--primary-background);
+}
+
+.selectContainer {
+  background-color: var(--primary-background);
+  height: 5vh;
+  position: fixed;
+  top: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 80vw;
+}
+
+.selectDiv {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  z-index: 10;
+  background-color: var(--primary-background);
+}
+
+.select {
+  color: black;
+}

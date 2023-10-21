@@ -56,7 +56,7 @@ const Header = () => {
             </li>
           </Link>
           <Link
-            href={"/About"}
+            href={"/MyFoods"}
             className=" whiteFont"
             style={{
               backgroundColor: "var(--secondary-color)",
