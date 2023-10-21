@@ -28,7 +28,7 @@ export default function Home() {
         snapshot.forEach((childSnapShot) => {
           const childKey = childSnapShot.key;
           const childData = childSnapShot.val();
-          console.log(childData);
+          //   console.log(childData);
           let obj = {
             name: childData.Name,
             category: childData.Category,
@@ -54,7 +54,11 @@ export default function Home() {
         return (
           <div key={`${val}-${index}`} className={styles.foodContainer}>
             <div>{val.name}</div>
-            <Dropdown onChange={console.log({ val })} firstOpt={val.category} />
+            <Dropdown
+              onChange={() => console.log({ val })}
+              firstOpt={val.category}
+              name={val.name}
+            />
           </div>
         );
       })}
