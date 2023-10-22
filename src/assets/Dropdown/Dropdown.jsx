@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { CategoryList } from "../CategoryList";
 import styles from "./Dropdown.module.scss";
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, push, ref, set, remove } from "firebase/database";
+import { BsPlusCircle, BsTrash } from "react-icons/bs";
 
-function Dropdown({ firstOpt, name, counter }) {
+function Dropdown({ firstOpt, name, counter, list }) {
+  const [category, setCategory] = useState(firstOpt);
+
   function writeUserData(e) {
     e.preventDefault();
 
@@ -19,28 +22,63 @@ function Dropdown({ firstOpt, name, counter }) {
         console.log("Uploaded Unsuccessfully... try again. ");
       });
   }
+
+  function addDataToMyList() {
+    const database = getDatabase();
+    set(ref(database, "MyList/" + name), {
+      Name: name,
+      Category: category,
+    })
+      .then(() => {
+        console.log("MyList updated successfully");
+      })
+      .catch((error) => {
+        console.log("MyList Uploaded Unsuccessfully... try again. ");
+      });
+  }
+  function removeDataFromMyFoods() {
+    const database = getDatabase();
+    remove(ref(database, "FoodList/" + name))
+      .then(() => {
+        console.log(name, "deleted from MyFoods");
+      })
+      .catch((error) => {
+        console.log(name, "not deleted from MyFoods");
+      });
+  }
+
   return (
-    <select
-      onChange={(e) => {
-        writeUserData(e);
-        counter();
-      }}
-      defaultValue={firstOpt}
-      className={styles.select}
-    >
-      <option>{firstOpt}</option>
-      {CategoryList.map((option, index) => (
-        <option
-          key={index}
-          value={option}
-          className={`${styles.option} ${
-            option === firstOpt ? styles.hide : ""
-          }`}
-        >
-          {option}
-        </option>
-      ))}
-    </select>
+    <div className={styles.selectDiv}>
+      <select
+        onChange={(e) => {
+          writeUserData(e);
+          counter();
+          setCategory(e.target.value);
+        }}
+        defaultValue={firstOpt}
+        className={styles.select}
+      >
+        <option>{firstOpt}</option>
+        {CategoryList.map((option, index) => (
+          <option
+            key={index}
+            value={option}
+            className={`${styles.option} ${
+              option === firstOpt ? styles.hide : ""
+            }`}
+          >
+            {option}
+          </option>
+        ))}
+      </select>
+      <BsPlusCircle onClick={addDataToMyList} />
+      <BsTrash
+        onClick={() => {
+          removeDataFromMyFoods();
+          counter();
+        }}
+      />
+    </div>
   );
 }
 

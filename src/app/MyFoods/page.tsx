@@ -6,7 +6,6 @@ import { db } from "../../assets/firebase";
 import { useState, useEffect } from "react";
 import { FoodListObj } from "@/assets/FoodList";
 import Dropdown from "../../assets/Dropdown/Dropdown";
-import { BsPlusCircle, BsTrash } from "react-icons/bs";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
@@ -50,15 +49,18 @@ export default function Home() {
     <main className={styles.main}>
       {foodList?.map((val, index) => {
         return (
-          <div key={`${val}-${index}`} className={styles.foodContainer}>
+          <div
+            key={`${val}-${index}`}
+            className={styles.foodContainer}
+            onChange={() => console.log("changed")}
+          >
             <div className={styles.foodName}>{val.name}</div>
             <Dropdown
               firstOpt={val.category}
               name={val.name}
-              counter={() => setFoodList([...foodList])}
+              counter={() => setFoodList(foodList)}
+              list={foodList}
             />
-            <BsPlusCircle />
-            <BsTrash />
           </div>
         );
       })}
