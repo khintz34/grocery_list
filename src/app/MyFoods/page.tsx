@@ -45,6 +45,11 @@ export default function Home() {
     }
   }
 
+  function handleState(value: Array<FoodListObj>) {
+    console.log(value);
+    setFoodList([...value]);
+  }
+
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
@@ -58,8 +63,9 @@ export default function Home() {
             <Dropdown
               firstOpt={val.category}
               name={val.name}
-              counter={() => setFoodList(foodList)}
+              add={() => setFoodList([...foodList])}
               list={foodList}
+              remove={handleState}
             />
           </div>
         );

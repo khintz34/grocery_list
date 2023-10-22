@@ -4,7 +4,7 @@ import styles from "./Dropdown.module.scss";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { BsPlusCircle, BsTrash } from "react-icons/bs";
 
-function Dropdown({ firstOpt, name, counter, list }) {
+function Dropdown({ firstOpt, name, add, list, remove }) {
   const [category, setCategory] = useState(firstOpt);
 
   function writeUserData(e) {
@@ -37,6 +37,13 @@ function Dropdown({ firstOpt, name, counter, list }) {
       });
   }
   function removeDataFromMyFoods() {
+    let newList = list;
+    const index = newList.map((e) => e.name).indexOf(name);
+    newList.splice(index, 1);
+    remove(newList);
+
+    //! this is not working
+
     const database = getDatabase();
     remove(ref(database, "FoodList/" + name))
       .then(() => {
@@ -52,7 +59,7 @@ function Dropdown({ firstOpt, name, counter, list }) {
       <select
         onChange={(e) => {
           writeUserData(e);
-          counter();
+          add();
           setCategory(e.target.value);
         }}
         defaultValue={firstOpt}
@@ -75,7 +82,6 @@ function Dropdown({ firstOpt, name, counter, list }) {
       <BsTrash
         onClick={() => {
           removeDataFromMyFoods();
-          counter();
         }}
       />
     </div>
