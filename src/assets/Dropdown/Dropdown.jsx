@@ -3,7 +3,7 @@ import { CategoryList } from "../CategoryList";
 import styles from "./Dropdown.module.scss";
 import { getDatabase, push, ref, set } from "firebase/database";
 
-function Dropdown({ onChange, firstOpt, name }) {
+function Dropdown({ firstOpt, name, counter }) {
   function writeUserData(e) {
     e.preventDefault();
 
@@ -21,7 +21,10 @@ function Dropdown({ onChange, firstOpt, name }) {
   }
   return (
     <select
-      onChange={(e) => writeUserData(e)}
+      onChange={(e) => {
+        writeUserData(e);
+        counter();
+      }}
       defaultValue={firstOpt}
       className={styles.select}
     >

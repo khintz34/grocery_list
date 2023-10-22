@@ -13,10 +13,16 @@ import Dropdown from "../../assets/Dropdown/Dropdown";
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const [selectedValue, setSelectedValue] = useState<string>("");
+  const [counter, setCounter] = useState<number>(0);
 
   useEffect(() => {
+    setFoodList([]);
     getUserData();
   }, []);
+
+  useEffect(() => {
+    console.log(counter);
+  }, [counter]);
 
   async function getUserData() {
     let holdingArray: Array<string> = [];
@@ -42,22 +48,27 @@ export default function Home() {
     );
 
     function addData(obj: FoodListObj) {
-      displayArray.push(obj);
-      setFoodList([...displayArray]);
-      console.log(obj);
+      console.log("adding data", obj);
+      if (foodList?.includes(obj)) {
+        console.log("Food Already added");
+      } else {
+        displayArray.push(obj);
+        setFoodList([...displayArray]);
+      }
     }
   }
 
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
+        // console.log(foodList);
         return (
           <div key={`${val}-${index}`} className={styles.foodContainer}>
             <div>{val.name}</div>
             <Dropdown
-              onChange={() => console.log({ val })}
               firstOpt={val.category}
               name={val.name}
+              counter={() => setFoodList([...foodList])}
             />
           </div>
         );
