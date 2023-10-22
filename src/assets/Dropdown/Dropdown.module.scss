@@ -6,3 +6,33 @@
 .hide {
   display: none;
 }
+
+.select {
+  display: flex;
+  flex-direction: row;
+}
+
+.selectContainer {
+  background-color: var(--primary-background);
+  height: 5vh;
+  position: fixed;
+  top: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  width: 80vw;
+}
+
+.selectDiv {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  z-index: 10;
+  background-color: var(--primary-background);
+}
+
+.select {
+  color: black;
+  width: 37vw;
+}

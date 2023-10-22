@@ -1,14 +1,12 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./page.module.scss";
 import { ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../../assets/firebase";
 import { useState, useEffect } from "react";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { FoodListObj } from "@/assets/FoodList";
-import { CategoryList } from "@/assets/CategoryList";
 import Dropdown from "../../assets/Dropdown/Dropdown";
+import { BsPlusCircle, BsTrash } from "react-icons/bs";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
@@ -20,10 +18,6 @@ export default function Home() {
     getUserData();
   }, []);
 
-  useEffect(() => {
-    console.log(counter);
-  }, [counter]);
-
   async function getUserData() {
     let holdingArray: Array<string> = [];
     const boardRef = databaseRef(db, "FoodList/");
@@ -34,7 +28,6 @@ export default function Home() {
         snapshot.forEach((childSnapShot) => {
           const childKey = childSnapShot.key;
           const childData = childSnapShot.val();
-          //   console.log(childData);
           let obj = {
             name: childData.Name,
             category: childData.Category,
@@ -48,28 +41,24 @@ export default function Home() {
     );
 
     function addData(obj: FoodListObj) {
-      console.log("adding data", obj);
-      if (foodList?.includes(obj)) {
-        console.log("Food Already added");
-      } else {
-        displayArray.push(obj);
-        setFoodList([...displayArray]);
-      }
+      displayArray.push(obj);
+      setFoodList([...displayArray]);
     }
   }
 
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
-        // console.log(foodList);
         return (
           <div key={`${val}-${index}`} className={styles.foodContainer}>
-            <div>{val.name}</div>
+            <div className={styles.foodName}>{val.name}</div>
             <Dropdown
               firstOpt={val.category}
               name={val.name}
               counter={() => setFoodList([...foodList])}
             />
+            <BsPlusCircle />
+            <BsTrash />
           </div>
         );
       })}
