@@ -4,7 +4,7 @@ import styles from "./Dropdown.module.scss";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { BsPlusCircle, BsTrash } from "react-icons/bs";
 
-function Dropdown({ firstOpt, name, add, list, remove }) {
+function Dropdown({ firstOpt, name, add, list, removeItem }) {
   const [category, setCategory] = useState(firstOpt);
 
   function writeUserData(e) {
@@ -40,7 +40,6 @@ function Dropdown({ firstOpt, name, add, list, remove }) {
     let newList = list;
     const index = newList.map((e) => e.name).indexOf(name);
     newList.splice(index, 1);
-    remove(newList);
 
     //! this is not working
 
@@ -52,6 +51,8 @@ function Dropdown({ firstOpt, name, add, list, remove }) {
       .catch((error) => {
         console.log(name, "not deleted from MyFoods");
       });
+
+    removeItem(newList);
   }
 
   return (

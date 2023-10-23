@@ -8,7 +8,7 @@ import { FoodListObj } from "@/assets/FoodList";
 import Dropdown from "../../assets/Dropdown/Dropdown";
 
 export default function Home() {
-  const [foodList, setFoodList] = useState<Array<FoodListObj>>();
+  const [foodList, setFoodList] = useState<Array<FoodListObj>>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [counter, setCounter] = useState<number>(0);
 
@@ -46,7 +46,7 @@ export default function Home() {
   }
 
   function handleState(value: Array<FoodListObj>) {
-    console.log(value);
+    console.log([...value]);
     setFoodList([...value]);
   }
 
@@ -65,7 +65,7 @@ export default function Home() {
               name={val.name}
               add={() => setFoodList([...foodList])}
               list={foodList}
-              remove={handleState}
+              removeItem={handleState}
             />
           </div>
         );
