@@ -1,0 +1,45 @@
+.main {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  height: 10vh;
+  border: 2px solid var(--primary-font);
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10vw;
+}
+
+.formInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  height: 10vh;
+  justify-content: center;
+  padding-left: 3vw;
+}
+
+.input {
+  color: black;
+  width: 37vw;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 4vw;
+}
+
+.label {
+  width: 20vw;
+}
+
+.button {
+  height: 8vh;
+  width: 8vh;
+  border-radius: 50%;
+  color: black;
+}

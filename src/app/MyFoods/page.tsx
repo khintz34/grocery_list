@@ -6,6 +6,7 @@ import { db } from "../../assets/firebase";
 import { useState, useEffect } from "react";
 import { FoodListObj } from "@/assets/FoodList";
 import Dropdown from "../../assets/Dropdown/Dropdown";
+import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>([]);
@@ -70,6 +71,7 @@ export default function Home() {
           </div>
         );
       })}
+      <AddFoodContainer />
     </main>
   );
 }
