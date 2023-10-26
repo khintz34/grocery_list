@@ -3,21 +3,27 @@
 import styles from "./page.module.scss";
 import { ref as databaseRef, onValue, ref } from "firebase/database";
 import { db } from "../../assets/firebase";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { FoodListObj } from "@/assets/FoodList";
 import Dropdown from "../../assets/Dropdown/Dropdown";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
+import { HeaderContext } from "@/contexts/authContext";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [counter, setCounter] = useState<number>(0);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const { headerText, setHeaderText } = useContext(HeaderContext);
 
   useEffect(() => {
     setFoodList([]);
     getUserData();
   }, [refresh]);
+
+  useEffect(() => {
+    setHeaderText("My Foods");
+  }, []);
 
   async function getUserData() {
     let holdingArray: Array<string> = [];
@@ -48,7 +54,6 @@ export default function Home() {
   }
 
   function handleState(value: Array<FoodListObj>) {
-    console.log([...value]);
     setFoodList([...value]);
   }
 

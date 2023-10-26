@@ -1,14 +1,16 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import styles from "../Header/Header.module.scss";
 import Link from "next/link";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavbarStore } from "@/stores/navbarStore";
+import { HeaderContext } from "@/contexts/authContext";
 
 const Header = () => {
   const navbarStatus = useNavbarStore((state) => state.navbarStatus);
   const changeStatus = useNavbarStore((state) => state.changeStatus);
   const checkRef = useRef<HTMLInputElement>(null);
+  const { headerText, setHeaderText } = useContext(HeaderContext);
 
   const handleToggle = () => {
     if (navbarStatus === true) {
@@ -28,7 +30,7 @@ const Header = () => {
       <h1 className={styles.headerSize}>
         <Link href={"/"} className={styles.a}>
           {/* eslint-disable-next-line react/no-unescaped-entities */}
-          My Grocery List
+          {headerText}
         </Link>
       </h1>
       <label className={`${styles.hamburgerMenu}`}>

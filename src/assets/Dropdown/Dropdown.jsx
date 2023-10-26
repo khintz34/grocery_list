@@ -41,8 +41,6 @@ function Dropdown({ firstOpt, name, add, list, removeItem }) {
     const index = newList.map((e) => e.name).indexOf(name);
     newList.splice(index, 1);
 
-    //! this is not working
-
     const database = getDatabase();
     remove(ref(database, "FoodList/" + name))
       .then(() => {

@@ -5,10 +5,12 @@ import { storage, db } from "../../assets/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { debug } from "console";
 
-export default function AddFoodContainer(props) {
-  // todo after add, trigger refresh? data is adding...
-  // todo change how category is defaulted
-  // todo foodname not getting blanked out after writeUserDate
+interface Props {
+  refresh: Function;
+  refVal: boolean;
+}
+
+export default function AddFoodContainer(props: Props) {
   const [foodName, setFoodName] = useState<string>("");
   const [category, setCategory] = useState<string>(CategoryList[0]);
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
@@ -51,6 +53,7 @@ export default function AddFoodContainer(props) {
               className={styles.input}
               onChange={(e) => setFoodName(e.target.value)}
               value={foodName}
+              maxLength={30}
             />
           </div>
           <div className={styles.inputContainer}>
