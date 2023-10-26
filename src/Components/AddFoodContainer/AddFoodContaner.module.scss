@@ -42,4 +42,19 @@
   width: 8vh;
   border-radius: 50%;
   color: black;
+  background-color: var(--secondary-background);
+  color: white;
+  border: 2px solid white;
+  font-size: 2vh;
+  padding: 1vh;
+}
+
+.disabledBtn {
+  height: 8vh;
+  width: 8vh;
+  border-radius: 50%;
+  background-color: lightgray;
+  border: 2px solid var(--primary-font);
+  font-size: 2vh;
+  padding: 1vh;
 }
