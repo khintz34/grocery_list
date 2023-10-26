@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./page.module.scss";
-import { ref as databaseRef, onValue } from "firebase/database";
+import { ref as databaseRef, onValue, ref } from "firebase/database";
 import { db } from "../../assets/firebase";
 import { useState, useEffect } from "react";
 import { FoodListObj } from "@/assets/FoodList";
@@ -12,11 +12,12 @@ export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>([]);
   const [selectedValue, setSelectedValue] = useState<string>("");
   const [counter, setCounter] = useState<number>(0);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     setFoodList([]);
     getUserData();
-  }, []);
+  }, [refresh]);
 
   async function getUserData() {
     let holdingArray: Array<string> = [];
@@ -51,6 +52,10 @@ export default function Home() {
     setFoodList([...value]);
   }
 
+  function handleRefresh(value: boolean) {
+    setRefresh(value);
+  }
+
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
@@ -71,7 +76,7 @@ export default function Home() {
           </div>
         );
       })}
-      <AddFoodContainer />
+      <AddFoodContainer refresh={handleRefresh} refVal={refresh} />
     </main>
   );
 }

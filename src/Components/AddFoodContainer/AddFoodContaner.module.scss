@@ -4,6 +4,7 @@
   width: 100vw;
   height: 10vh;
   border: 2px solid var(--primary-font);
+  z-index: 5;
 }
 
 .form {
@@ -25,6 +26,7 @@
 .input {
   color: black;
   width: 37vw;
+  overflow: hidden;
 }
 
 .inputContainer {

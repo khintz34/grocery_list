@@ -5,7 +5,7 @@ import { storage, db } from "../../assets/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { debug } from "console";
 
-export default function AddFoodContainer() {
+export default function AddFoodContainer(props) {
   // todo after add, trigger refresh? data is adding...
   // todo change how category is defaulted
   // todo foodname not getting blanked out after writeUserDate
@@ -29,8 +29,8 @@ export default function AddFoodContainer() {
       Category: category,
     })
       .then(() => {
+        props.refresh(!props.refVal);
         setFoodName("");
-        setCategory("");
       })
       .catch((error) => {
         console.log(error);
@@ -50,6 +50,7 @@ export default function AddFoodContainer() {
               placeholder="Food Name"
               className={styles.input}
               onChange={(e) => setFoodName(e.target.value)}
+              value={foodName}
             />
           </div>
           <div className={styles.inputContainer}>
