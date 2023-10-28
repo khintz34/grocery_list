@@ -8,19 +8,25 @@ import { useState, useEffect, useContext } from "react";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { FoodListObj } from "@/assets/FoodList";
 import { HeaderContext } from "@/contexts/authContext";
+import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const { headerText, setHeaderText } = useContext(HeaderContext);
+  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     getUserData();
     setHeaderText("My Grocery List");
   }, []);
 
+  function handleRefresh(value: boolean) {
+    setRefresh(value);
+  }
+
   async function getUserData() {
     let holdingArray: Array<string> = [];
-    const boardRef = databaseRef(db, "FoodList/");
+    const boardRef = databaseRef(db, "MyList/");
     let displayArray: Array<any> = [];
     onValue(
       boardRef,
@@ -57,6 +63,7 @@ export default function Home() {
           </div>
         );
       })}
+      <AddFoodContainer refresh={handleRefresh} refVal={refresh} />
     </main>
   );
 }

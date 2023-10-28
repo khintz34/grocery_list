@@ -16,6 +16,9 @@ export default function Home() {
   const [refresh, setRefresh] = useState<boolean>(false);
   const { headerText, setHeaderText } = useContext(HeaderContext);
 
+  // todo add AddFoodContainer
+  //todo pass in fxn to add to MyList as well
+
   useEffect(() => {
     setFoodList([]);
     getUserData();
