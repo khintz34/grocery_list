@@ -8,6 +8,7 @@ import { FoodListObj } from "@/assets/FoodList";
 import Dropdown from "../../assets/Dropdown/Dropdown";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { HeaderContext } from "@/contexts/authContext";
+import { FALSE } from "sass";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>([]);
@@ -41,6 +42,7 @@ export default function Home() {
           let obj = {
             name: childData.Name,
             category: childData.Category,
+            note: "",
           };
           addData(obj);
         });
@@ -57,10 +59,12 @@ export default function Home() {
   }
 
   function handleState(value: Array<FoodListObj>) {
+    console.log("state: myFods");
     setFoodList([...value]);
   }
 
   function handleRefresh(value: boolean) {
+    console.log("refreshing myFoods");
     setRefresh(value);
   }
 
@@ -84,7 +88,7 @@ export default function Home() {
           </div>
         );
       })}
-      <AddFoodContainer refresh={handleRefresh} refVal={refresh} />
+      <AddFoodContainer refresh={handleRefresh} refVal={refresh} path={false} />
     </main>
   );
 }

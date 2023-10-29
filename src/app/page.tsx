@@ -18,15 +18,21 @@ export default function Home() {
   // todo sort food list by category
 
   useEffect(() => {
+    setFoodList([]);
     getUserData();
+  }, [refresh]);
+
+  useEffect(() => {
     setHeaderText("My Grocery List");
   }, []);
 
   function handleRefresh(value: boolean) {
+    console.log("Refeshing");
     setRefresh(value);
   }
 
   function handleState(value: Array<FoodListObj>) {
+    console.log("handling state");
     setFoodList([...value]);
   }
 
@@ -40,7 +46,7 @@ export default function Home() {
         snapshot.forEach((childSnapShot) => {
           const childKey = childSnapShot.key;
           const childData = childSnapShot.val();
-          console.log(childData);
+          // console.log(childData);
           let obj = {
             name: childData.Name,
             category: childData.Category,
@@ -57,7 +63,7 @@ export default function Home() {
     function addData(obj: FoodListObj) {
       displayArray.push(obj);
       setFoodList([...displayArray]);
-      console.log(obj);
+      // console.log(obj);
     }
   }
 
@@ -71,10 +77,13 @@ export default function Home() {
             category={val.category}
             list={foodList}
             removeItem={handleState}
+            note={val.note}
+            refresh={handleRefresh}
+            refVal={refresh}
           />
         );
       })}
-      <AddFoodContainer refresh={handleRefresh} refVal={refresh} />
+      <AddFoodContainer refresh={handleRefresh} refVal={refresh} path={true} />
     </main>
   );
 }

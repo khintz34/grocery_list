@@ -8,6 +8,7 @@ import { debug } from "console";
 interface Props {
   refresh: Function;
   refVal: boolean;
+  path: boolean;
 }
 
 export default function AddFoodContainer(props: Props) {
@@ -15,7 +16,7 @@ export default function AddFoodContainer(props: Props) {
   const [category, setCategory] = useState<string>(CategoryList[0]);
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
 
-  // todo handle adding to MyList
+  // todo handle adding to MyList --> the list being passed in is messing this up...may need two seperate addFoodContainers...
   // todo if MyList then add a note input
 
   useEffect(() => {
@@ -29,11 +30,42 @@ export default function AddFoodContainer(props: Props) {
   function writeUserData(e: any) {
     e.preventDefault();
 
+    if (props.path) {
+      addMyList();
+      // addFoodList();
+    } else {
+      addFoodList();
+    }
+  }
+
+  function addFoodList() {
     set(ref(db, "FoodList/" + foodName), {
       Name: foodName,
       Category: category,
     })
       .then(() => {
+        props.refresh(!props.refVal);
+        setFoodName("");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function addMyList() {
+    set(ref(db, "MyList/" + foodName), {
+      Name: foodName,
+      Category: category,
+      Note: "",
+    })
+      .then(() => {
+        set(ref(db, "FoodList/" + foodName), {
+          Name: foodName,
+          Category: category,
+        });
+      })
+      .then(() => {
+        console.log(props.refresh);
         props.refresh(!props.refVal);
         setFoodName("");
       })
