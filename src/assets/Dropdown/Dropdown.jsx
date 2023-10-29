@@ -28,6 +28,7 @@ function Dropdown({ firstOpt, name, add, list, removeItem }) {
     set(ref(database, "MyList/" + name), {
       Name: name,
       Category: category,
+      Note: "",
     })
       .then(() => {
         console.log("MyList updated successfully");

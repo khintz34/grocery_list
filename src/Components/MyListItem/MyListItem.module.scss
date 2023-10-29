@@ -1,0 +1,30 @@
+.main {
+  width: 90vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.pName {
+  width: 30vw;
+}
+
+.input {
+  color: var(--primary-font);
+  background-color: var(--primary-background);
+  border: none;
+  border-bottom: 2px dashed var(--primary-font);
+  width: 20vw;
+}
+
+.hide {
+  visibility: hidden;
+}
+
+.show {
+  visibility: visible;
+}
+.iconContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 3vw;
+}

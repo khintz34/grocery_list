@@ -15,6 +15,9 @@ export default function AddFoodContainer(props: Props) {
   const [category, setCategory] = useState<string>(CategoryList[0]);
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
 
+  // todo handle adding to MyList
+  // todo if MyList then add a note input
+
   useEffect(() => {
     if (foodName === undefined || foodName === "") {
       setDisabledBtn(true);

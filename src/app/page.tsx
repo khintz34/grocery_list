@@ -9,11 +9,13 @@ import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { FoodListObj } from "@/assets/FoodList";
 import { HeaderContext } from "@/contexts/authContext";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
+import MyListItem from "@/Components/MyListItem/MyListItem";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [refresh, setRefresh] = useState<boolean>(false);
+  // todo sort food list by category
 
   useEffect(() => {
     getUserData();
@@ -22,6 +24,10 @@ export default function Home() {
 
   function handleRefresh(value: boolean) {
     setRefresh(value);
+  }
+
+  function handleState(value: Array<FoodListObj>) {
+    setFoodList([...value]);
   }
 
   async function getUserData() {
@@ -38,6 +44,7 @@ export default function Home() {
           let obj = {
             name: childData.Name,
             category: childData.Category,
+            note: childData.Note,
           };
           addData(obj);
         });
@@ -58,9 +65,13 @@ export default function Home() {
     <main className={styles.main}>
       {foodList?.map((val, index) => {
         return (
-          <div key={`${val}-${index}`}>
-            {val.name} : {val.category}
-          </div>
+          <MyListItem
+            key={`${val.name}-${index}`}
+            name={val.name}
+            category={val.category}
+            list={foodList}
+            removeItem={handleState}
+          />
         );
       })}
       <AddFoodContainer refresh={handleRefresh} refVal={refresh} />
