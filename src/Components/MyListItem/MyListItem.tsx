@@ -24,10 +24,11 @@ interface Props {
 export default function MyListItem(props: Props) {
   const [inputStatus, setInputStatus] = useState(styles.hide);
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [noteVal, setNoteVal] = useState<string>("");
 
-  useEffect(() => {
-    console.log("yes");
-  }, [refresh]);
+  //   useEffect(() => {
+  //     console.log("yes");
+  //   }, [refresh]);
 
   function handleStatusClick() {
     if (inputStatus === styles.show) {
@@ -55,16 +56,24 @@ export default function MyListItem(props: Props) {
   }
 
   // delay this a few seconds
-  function updateNote(e: any) {
+  function updateNote() {
     set(ref(db, "MyList/" + props.name), {
       Name: props.name,
       Category: props.category,
-      Note: e.target.value,
+      Note: noteVal,
     }).then(() => {
-      console.log(props.refresh);
       props.refresh(!props.refVal);
     });
   }
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      // Send Axios request here
+      updateNote();
+    }, 3000);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [noteVal]);
 
   return (
     <main className={styles.main}>
@@ -74,7 +83,7 @@ export default function MyListItem(props: Props) {
           type="text"
           className={styles.input}
           defaultValue={props.note}
-          onChange={(e) => updateNote(e)}
+          onChange={(e) => setNoteVal(e.target.value)}
         />
       </div>
       <div className={styles.iconContainer}>

@@ -18,6 +18,7 @@ export default function Home() {
   // todo sort food list by category
 
   useEffect(() => {
+    console.log("refreshin useEffect");
     setFoodList([]);
     getUserData();
   }, [refresh]);
@@ -54,6 +55,8 @@ export default function Home() {
           };
           addData(obj);
         });
+        console.log("done getting data");
+        sortFoodList(displayArray);
       },
       {
         onlyOnce: false,
@@ -64,6 +67,16 @@ export default function Home() {
       displayArray.push(obj);
       setFoodList([...displayArray]);
       // console.log(obj);
+    }
+
+    function sortFoodList(list: Array<FoodListObj>) {
+      console.log(list);
+
+      list?.sort((a: any, b: any) => (a.category > b.category ? 1 : -1));
+
+      console.log(list);
+
+      setFoodList(list);
     }
   }
 
@@ -83,7 +96,14 @@ export default function Home() {
           />
         );
       })}
-      <AddFoodContainer refresh={handleRefresh} refVal={refresh} path={true} />
+      {/* todo fix list */}
+      <AddFoodContainer
+        refresh={handleRefresh}
+        refVal={refresh}
+        path={true}
+        reset={handleState}
+        foodlist={foodList}
+      />
     </main>
   );
 }

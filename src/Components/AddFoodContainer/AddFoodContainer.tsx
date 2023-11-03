@@ -4,11 +4,14 @@ import { CategoryList } from "@/assets/CategoryList";
 import { storage, db } from "../../assets/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { debug } from "console";
+import { FoodListObj } from "@/assets/FoodList";
 
 interface Props {
   refresh: Function;
   refVal: boolean;
   path: boolean;
+  reset: Function;
+  foodlist: Array<FoodListObj>;
 }
 
 export default function AddFoodContainer(props: Props) {
@@ -16,8 +19,8 @@ export default function AddFoodContainer(props: Props) {
   const [category, setCategory] = useState<string>(CategoryList[0]);
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
 
-  // todo handle adding to MyList --> the list being passed in is messing this up...may need two seperate addFoodContainers...
-  // todo if MyList then add a note input
+  // todo when adding, just add to foodList by pushing a new obj
+  // add a note for when path is true
 
   useEffect(() => {
     if (foodName === undefined || foodName === "") {
@@ -31,8 +34,7 @@ export default function AddFoodContainer(props: Props) {
     e.preventDefault();
 
     if (props.path) {
-      addMyList();
-      // addFoodList();
+      addMyList(e);
     } else {
       addFoodList();
     }
@@ -44,6 +46,7 @@ export default function AddFoodContainer(props: Props) {
       Category: category,
     })
       .then(() => {
+        console.log("here");
         props.refresh(!props.refVal);
         setFoodName("");
       })
@@ -52,7 +55,7 @@ export default function AddFoodContainer(props: Props) {
       });
   }
 
-  function addMyList() {
+  function addMyList(e: any) {
     set(ref(db, "MyList/" + foodName), {
       Name: foodName,
       Category: category,
@@ -65,8 +68,16 @@ export default function AddFoodContainer(props: Props) {
         });
       })
       .then(() => {
-        console.log(props.refresh);
-        props.refresh(!props.refVal);
+        let newList: Array<FoodListObj> = [...props.foodlist];
+        let item = {} as FoodListObj;
+        item.name = foodName;
+        item.category = category;
+        item.note = "";
+        newList.push(item);
+        props.reset(newList);
+      })
+      .then(() => {
+        // props.refresh(!props.refVal);
         setFoodName("");
       })
       .catch((error) => {

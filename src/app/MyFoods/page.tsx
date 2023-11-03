@@ -88,7 +88,13 @@ export default function Home() {
           </div>
         );
       })}
-      <AddFoodContainer refresh={handleRefresh} refVal={refresh} path={false} />
+      <AddFoodContainer
+        refresh={handleRefresh}
+        refVal={refresh}
+        path={false}
+        reset={() => console.log("reset")}
+        foodlist={[]}
+      />
     </main>
   );
 }
