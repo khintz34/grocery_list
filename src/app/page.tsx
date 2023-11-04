@@ -15,7 +15,8 @@ export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [refresh, setRefresh] = useState<boolean>(false);
-  // todo sort food list by category
+  let prevCat = "";
+  // todo display category for each item
 
   useEffect(() => {
     console.log("refreshin useEffect");
@@ -83,18 +84,51 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
-        return (
-          <MyListItem
-            key={`${val.name}-${index}`}
-            name={val.name}
-            category={val.category}
-            list={foodList}
-            removeItem={handleState}
-            note={val.note}
-            refresh={handleRefresh}
-            refVal={refresh}
-          />
-        );
+        console.log(index);
+        if (index === 0) {
+          return (
+            <div key={`zero-${index}-${val.name}`}>
+              <div>{val.category}</div>
+              <MyListItem
+                key={`${val.name}-${index}`}
+                name={val.name}
+                category={val.category}
+                list={foodList}
+                removeItem={handleState}
+                note={val.note}
+                refresh={handleRefresh}
+                refVal={refresh}
+              />
+            </div>
+          );
+        } else {
+          return val.category === foodList[index - 1].category ? (
+            <MyListItem
+              key={`${val.name}-${index}`}
+              name={val.name}
+              category={val.category}
+              list={foodList}
+              removeItem={handleState}
+              note={val.note}
+              refresh={handleRefresh}
+              refVal={refresh}
+            />
+          ) : (
+            <div key={`zero-${index}-${val.name}`}>
+              <div>{val.category}</div>
+              <MyListItem
+                key={`${val.name}-${index}`}
+                name={val.name}
+                category={val.category}
+                list={foodList}
+                removeItem={handleState}
+                note={val.note}
+                refresh={handleRefresh}
+                refVal={refresh}
+              />
+            </div>
+          );
+        }
       })}
       {/* todo fix list */}
       <AddFoodContainer
