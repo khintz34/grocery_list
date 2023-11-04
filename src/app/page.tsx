@@ -75,8 +75,11 @@ export default function Home() {
       {foodList?.map((val, index) => {
         if (index === 0) {
           return (
-            <div key={`zero-${index}-${val.name}`}>
-              <div>{val.category}</div>
+            <div
+              key={`zero-${index}-${val.name}`}
+              className={styles.foodItemContainer}
+            >
+              <div className={styles.catDisplay}>{val.category}</div>
               <MyListItem
                 key={`${val.name}-${index}`}
                 name={val.name}
@@ -102,8 +105,11 @@ export default function Home() {
               refVal={refresh}
             />
           ) : (
-            <div key={`zero-${index}-${val.name}`}>
-              <div>{val.category}</div>
+            <div
+              key={`zero-${index}-${val.name}`}
+              className={styles.foodItemContainer}
+            >
+              <div className={styles.catDisplay}>{val.category}</div>
               <MyListItem
                 key={`${val.name}-${index}`}
                 name={val.name}

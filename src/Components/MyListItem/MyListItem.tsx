@@ -8,9 +8,7 @@ import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
 import { BooleanLiteral } from "typescript";
 
-// todo add note aspect to myList Datatype
-// todo when adding to MyList need to add a blank note
-// todo on input Change update note
+// todo on input Change update note. this is overriding when clicking on it
 interface Props {
   name: string;
   category: string;
@@ -62,7 +60,7 @@ export default function MyListItem(props: Props) {
     const delayDebounceFn = setTimeout(() => {
       // Send Axios request here
       updateNote();
-    }, 3000);
+    }, 1000);
 
     return () => clearTimeout(delayDebounceFn);
   }, [noteVal]);
@@ -75,6 +73,7 @@ export default function MyListItem(props: Props) {
           type="text"
           className={styles.input}
           defaultValue={props.note}
+          //   value={noteVal}
           onChange={(e) => setNoteVal(e.target.value)}
         />
       </div>

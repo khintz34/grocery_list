@@ -6,4 +6,15 @@
   padding: 6rem;
   min-height: 100vh;
   background-color: var(--primary-background);
+  gap: 1.5vh;
+}
+
+.foodItemContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.catDisplay {
+  text-align: center;
+  background-color: var(--secondary-background);
 }
