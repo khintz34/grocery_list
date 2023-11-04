@@ -18,7 +18,7 @@
 .formInputs {
   display: flex;
   flex-direction: column;
-  gap: 1.5vh;
+  gap: 1vh;
   height: 10vh;
   justify-content: center;
   padding-left: 3vw;
@@ -60,4 +60,8 @@
   border: 2px solid var(--primary-font);
   font-size: 2vh;
   padding: 1vh;
+}
+
+.hide {
+  display: none;
 }

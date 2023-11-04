@@ -130,7 +130,7 @@ export default function Home() {
         refVal={refresh}
         path={true}
         reset={handleState}
-        foodlist={foodList}
+        foodlistProp={foodList}
       />
     </main>
   );

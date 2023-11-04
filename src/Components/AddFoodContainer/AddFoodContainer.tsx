@@ -11,16 +11,17 @@ interface Props {
   refVal: boolean;
   path: boolean;
   reset: Function;
-  foodlist: Array<FoodListObj>;
+  foodlistProp: Array<FoodListObj>;
 }
 
 export default function AddFoodContainer(props: Props) {
   const [foodName, setFoodName] = useState<string>("");
   const [category, setCategory] = useState<string>(CategoryList[0]);
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
+  const [foodNote, setFoodNote] = useState<string>("");
 
   // todo when adding, just add to foodList by pushing a new obj
-  // add a note for when path is true
+  //todo list shouldnt overlap add container
 
   useEffect(() => {
     if (foodName === undefined || foodName === "") {
@@ -46,7 +47,6 @@ export default function AddFoodContainer(props: Props) {
       Category: category,
     })
       .then(() => {
-        console.log("here");
         props.refresh(!props.refVal);
         setFoodName("");
       })
@@ -59,7 +59,7 @@ export default function AddFoodContainer(props: Props) {
     set(ref(db, "MyList/" + foodName), {
       Name: foodName,
       Category: category,
-      Note: "",
+      Note: foodNote,
     })
       .then(() => {
         set(ref(db, "FoodList/" + foodName), {
@@ -68,17 +68,18 @@ export default function AddFoodContainer(props: Props) {
         });
       })
       .then(() => {
-        let newList: Array<FoodListObj> = [...props.foodlist];
+        let newList: Array<FoodListObj> = [...props.foodlistProp];
         let item = {} as FoodListObj;
         item.name = foodName;
         item.category = category;
-        item.note = "";
+        item.note = foodNote;
         newList.push(item);
         props.reset(newList);
       })
       .then(() => {
-        // props.refresh(!props.refVal);
         setFoodName("");
+        setFoodNote("");
+        props.refresh(!props.refVal);
       })
       .catch((error) => {
         console.log(error);
@@ -124,6 +125,23 @@ export default function AddFoodContainer(props: Props) {
               ))}
             </select>
           </div>
+          {props.path ? (
+            <div className={styles.inputContainer}>
+              <label htmlFor="foodNote" className={styles.label}>
+                Note
+              </label>
+              <input
+                type="text"
+                placeholder="Note (amount/count/etc)"
+                className={styles.input}
+                onChange={(e) => setFoodNote(e.target.value)}
+                value={foodNote}
+                maxLength={30}
+              />
+            </div>
+          ) : (
+            <div className={styles.hide}></div>
+          )}
         </div>
         <div>
           <button

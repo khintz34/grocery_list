@@ -8,7 +8,6 @@ import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
 import { BooleanLiteral } from "typescript";
 
-// todo on input Change update note. this is overriding when clicking on it
 interface Props {
   name: string;
   category: string;
@@ -23,7 +22,6 @@ export default function MyListItem(props: Props) {
   const [inputStatus, setInputStatus] = useState(
     `${props.note === "" ? styles.hide : styles.show}`
   );
-  const [refresh, setRefresh] = useState<boolean>(false);
   const [noteVal, setNoteVal] = useState<string>(props.note);
 
   function handleStatusClick() {
@@ -45,6 +43,7 @@ export default function MyListItem(props: Props) {
     });
 
     props.removeItem(newList);
+    props.refresh(!props.refVal);
   }
 
   function updateNote() {
@@ -72,9 +71,7 @@ export default function MyListItem(props: Props) {
           type="text"
           className={styles.input}
           defaultValue={props.note}
-          //   value={noteVal}
           onChange={(e) => setNoteVal(e.target.value)}
-          //   onChange={(e) => updateNote(e.target.value)}
         />
       </div>
       <div className={styles.iconContainer}>
