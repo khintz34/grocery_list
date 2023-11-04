@@ -26,10 +26,6 @@ export default function MyListItem(props: Props) {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [noteVal, setNoteVal] = useState<string>("");
 
-  //   useEffect(() => {
-  //     console.log("yes");
-  //   }, [refresh]);
-
   function handleStatusClick() {
     if (inputStatus === styles.show) {
       setInputStatus(styles.hide);
@@ -44,13 +40,9 @@ export default function MyListItem(props: Props) {
     newList.splice(index, 1);
 
     const database = getDatabase();
-    remove(ref(database, "MyList/" + props.name))
-      .then(() => {
-        console.log(name, "deleted from MyList");
-      })
-      .catch((error) => {
-        console.log(name, "not deleted from MyList");
-      });
+    remove(ref(database, "MyList/" + props.name)).catch((error) => {
+      console.log(props.name, "not deleted from MyList");
+    });
 
     props.removeItem(newList);
   }

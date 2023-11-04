@@ -14,13 +14,9 @@ function Dropdown({ firstOpt, name, add, list, removeItem }) {
     set(ref(database, "FoodList/" + name), {
       Name: name,
       Category: e.target.value,
-    })
-      .then(() => {
-        console.log("updated successfully");
-      })
-      .catch((error) => {
-        console.log("Uploaded Unsuccessfully... try again. ");
-      });
+    }).catch((error) => {
+      console.log("Uploaded Unsuccessfully... try again. ");
+    });
   }
 
   function addDataToMyList() {
@@ -29,13 +25,9 @@ function Dropdown({ firstOpt, name, add, list, removeItem }) {
       Name: name,
       Category: category,
       Note: "",
-    })
-      .then(() => {
-        console.log("MyList updated successfully");
-      })
-      .catch((error) => {
-        console.log("MyList Uploaded Unsuccessfully... try again. ");
-      });
+    }).catch((error) => {
+      console.log("MyList Uploaded Unsuccessfully... try again. ");
+    });
   }
   function removeDataFromMyFoods() {
     let newList = list;
@@ -43,13 +35,9 @@ function Dropdown({ firstOpt, name, add, list, removeItem }) {
     newList.splice(index, 1);
 
     const database = getDatabase();
-    remove(ref(database, "FoodList/" + name))
-      .then(() => {
-        console.log(name, "deleted from MyFoods");
-      })
-      .catch((error) => {
-        console.log(name, "not deleted from MyFoods");
-      });
+    remove(ref(database, "FoodList/" + name)).catch((error) => {
+      console.log(name, "not deleted from MyFoods");
+    });
 
     removeItem(newList);
   }

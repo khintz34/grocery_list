@@ -19,7 +19,6 @@ export default function Home() {
   // todo display category for each item
 
   useEffect(() => {
-    console.log("refreshin useEffect");
     setFoodList([]);
     getUserData();
   }, [refresh]);
@@ -29,12 +28,10 @@ export default function Home() {
   }, []);
 
   function handleRefresh(value: boolean) {
-    console.log("Refeshing");
     setRefresh(value);
   }
 
   function handleState(value: Array<FoodListObj>) {
-    console.log("handling state");
     setFoodList([...value]);
   }
 
@@ -48,7 +45,6 @@ export default function Home() {
         snapshot.forEach((childSnapShot) => {
           const childKey = childSnapShot.key;
           const childData = childSnapShot.val();
-          // console.log(childData);
           let obj = {
             name: childData.Name,
             category: childData.Category,
@@ -56,7 +52,6 @@ export default function Home() {
           };
           addData(obj);
         });
-        console.log("done getting data");
         sortFoodList(displayArray);
       },
       {
@@ -67,16 +62,10 @@ export default function Home() {
     function addData(obj: FoodListObj) {
       displayArray.push(obj);
       setFoodList([...displayArray]);
-      // console.log(obj);
     }
 
     function sortFoodList(list: Array<FoodListObj>) {
-      console.log(list);
-
       list?.sort((a: any, b: any) => (a.category > b.category ? 1 : -1));
-
-      console.log(list);
-
       setFoodList(list);
     }
   }
@@ -84,7 +73,6 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
-        console.log(index);
         if (index === 0) {
           return (
             <div key={`zero-${index}-${val.name}`}>
