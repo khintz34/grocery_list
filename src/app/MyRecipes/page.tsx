@@ -1,23 +1,18 @@
 "use client";
 
-import Image from "next/image";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./page.module.scss";
-import { ref as databaseRef, onValue } from "firebase/database";
-import { db } from "../assets/firebase";
-import { useState, useEffect, useContext } from "react";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import { FoodListObj } from "@/assets/FoodList";
 import { HeaderContext } from "@/contexts/authContext";
-import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
+import { FoodListObj } from "@/assets/FoodList";
+import { ref as databaseRef, onValue } from "firebase/database";
+import { db } from "../../assets/firebase";
 import MyListItem from "@/Components/MyListItem/MyListItem";
-import { ShoppingOrderList } from "@/assets/ShoppingOrderList";
+import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 
-export default function Home() {
-  const [foodList, setFoodList] = useState<Array<FoodListObj>>();
+export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
+  const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const [refresh, setRefresh] = useState<boolean>(false);
-  let prevCat = "";
-  // todo display category for each item
 
   useEffect(() => {
     setFoodList([]);
@@ -25,16 +20,8 @@ export default function Home() {
   }, [refresh]);
 
   useEffect(() => {
-    setHeaderText("My Grocery List");
+    setHeaderText("My Recipes");
   }, []);
-
-  function handleRefresh(value: boolean) {
-    setRefresh(value);
-  }
-
-  function handleState(value: Array<FoodListObj>) {
-    setFoodList([...value]);
-  }
 
   async function getUserData() {
     let holdingArray: Array<string> = [];
@@ -66,13 +53,17 @@ export default function Home() {
     }
 
     function sortFoodList(list: Array<FoodListObj>) {
-      list.sort(
-        (a, b) =>
-          ShoppingOrderList.indexOf(a.category) -
-          ShoppingOrderList.indexOf(b.category)
-      );
+      list?.sort((a: any, b: any) => (a.category > b.category ? 1 : -1));
       setFoodList(list);
     }
+  }
+
+  function handleRefresh(value: boolean) {
+    setRefresh(value);
+  }
+
+  function handleState(value: Array<FoodListObj>) {
+    setFoodList([...value]);
   }
 
   return (

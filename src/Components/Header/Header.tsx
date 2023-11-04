@@ -74,7 +74,7 @@ const Header = () => {
           </Link>
           <Link
             className=" whiteFont"
-            href={"/FamilyTree"}
+            href={"/MyRecipes"}
             style={{
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",

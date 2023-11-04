@@ -47,7 +47,6 @@ export default function MyListItem(props: Props) {
   }
 
   function updateNote() {
-    console.log("update note", noteVal);
     set(ref(db, "MyList/" + props.name), {
       Name: props.name,
       Category: props.category,
