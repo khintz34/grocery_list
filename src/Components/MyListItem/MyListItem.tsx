@@ -20,9 +20,11 @@ interface Props {
 }
 
 export default function MyListItem(props: Props) {
-  const [inputStatus, setInputStatus] = useState(styles.hide);
+  const [inputStatus, setInputStatus] = useState(
+    `${props.note === "" ? styles.hide : styles.show}`
+  );
   const [refresh, setRefresh] = useState<boolean>(false);
-  const [noteVal, setNoteVal] = useState<string>("");
+  const [noteVal, setNoteVal] = useState<string>(props.note);
 
   function handleStatusClick() {
     if (inputStatus === styles.show) {
@@ -45,24 +47,21 @@ export default function MyListItem(props: Props) {
     props.removeItem(newList);
   }
 
-  // delay this a few seconds
   function updateNote() {
+    console.log("update note", noteVal);
     set(ref(db, "MyList/" + props.name), {
       Name: props.name,
       Category: props.category,
       Note: noteVal,
-    }).then(() => {
-      props.refresh(!props.refVal);
     });
   }
 
   useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      // Send Axios request here
+    const delayUpdate = setTimeout(() => {
       updateNote();
-    }, 1000);
+    }, 3000);
 
-    return () => clearTimeout(delayDebounceFn);
+    return () => clearTimeout(delayUpdate);
   }, [noteVal]);
 
   return (
@@ -75,6 +74,7 @@ export default function MyListItem(props: Props) {
           defaultValue={props.note}
           //   value={noteVal}
           onChange={(e) => setNoteVal(e.target.value)}
+          //   onChange={(e) => updateNote(e.target.value)}
         />
       </div>
       <div className={styles.iconContainer}>
