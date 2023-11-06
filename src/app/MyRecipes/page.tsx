@@ -4,10 +4,14 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { HeaderContext } from "@/contexts/authContext";
 import { FoodListObj } from "@/assets/FoodList";
-import { ref as databaseRef, onValue } from "firebase/database";
+import { child, ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../../assets/firebase";
 import MyListItem from "@/Components/MyListItem/MyListItem";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
+import { RecipeObj } from "@/assets/RecipeObj";
+
+// todo create itemObj for recipe instead of using FoodListoBj
+// each recipe will have multiple food list items in it
 
 export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
@@ -25,20 +29,28 @@ export default function MyRecipes() {
 
   async function getUserData() {
     let holdingArray: Array<string> = [];
-    const boardRef = databaseRef(db, "MyList/");
+    const boardRef = databaseRef(db, "RecipeList/");
     let displayArray: Array<any> = [];
     onValue(
       boardRef,
       (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const childKey = childSnapShot.key;
+          console.log(childKey);
           const childData = childSnapShot.val();
+          let recipeArray: Array<RecipeObj> = [];
+
+          //todo use this to create an obj
+          //   repName should be the recipe name
+          for (const prop in childData) {
+            console.log(childData[prop]);
+          }
           let obj = {
-            name: childData.Name,
-            category: childData.Category,
-            note: childData.Note,
+            reipeName: childKey,
+            ingredientList: recipeArray,
           };
-          addData(obj);
+          console.log(obj);
+          //   addData(obj);
         });
         sortFoodList(displayArray);
       },
@@ -69,65 +81,16 @@ export default function MyRecipes() {
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
-        if (index === 0) {
-          return (
-            <div
-              key={`zero-${index}-${val.name}`}
-              className={styles.foodItemContainer}
-            >
-              <div className={styles.catDisplay}>{val.category}</div>
-              <MyListItem
-                key={`${val.name}-${index}`}
-                name={val.name}
-                category={val.category}
-                list={foodList}
-                removeItem={handleState}
-                note={val.note}
-                refresh={handleRefresh}
-                refVal={refresh}
-              />
-            </div>
-          );
-        } else {
-          return val.category === foodList[index - 1].category ? (
-            <MyListItem
-              key={`${val.name}-${index}`}
-              name={val.name}
-              category={val.category}
-              list={foodList}
-              removeItem={handleState}
-              note={val.note}
-              refresh={handleRefresh}
-              refVal={refresh}
-            />
-          ) : (
-            <div
-              key={`zero-${index}-${val.name}`}
-              className={styles.foodItemContainer}
-            >
-              <div className={styles.catDisplay}>{val.category}</div>
-              <MyListItem
-                key={`${val.name}-${index}`}
-                name={val.name}
-                category={val.category}
-                list={foodList}
-                removeItem={handleState}
-                note={val.note}
-                refresh={handleRefresh}
-                refVal={refresh}
-              />
-            </div>
-          );
-        }
+        console.log(val);
+        return (
+          <div
+            key={`zero-${index}-${val.name}`}
+            className={styles.foodItemContainer}
+          >
+            {val.name}
+          </div>
+        );
       })}
-      {/* todo fix list */}
-      <AddFoodContainer
-        refresh={handleRefresh}
-        refVal={refresh}
-        path={true}
-        reset={handleState}
-        foodlistProp={foodList}
-      />
     </main>
   );
 }
