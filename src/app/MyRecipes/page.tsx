@@ -15,7 +15,7 @@ import { RecipeObj } from "@/assets/RecipeObj";
 
 export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
-  const [foodList, setFoodList] = useState<Array<FoodListObj>>();
+  const [foodList, setFoodList] = useState<Array<RecipeObj>>();
   const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
@@ -36,45 +36,54 @@ export default function MyRecipes() {
       (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const childKey = childSnapShot.key;
-          console.log(childKey);
           const childData = childSnapShot.val();
           let recipeArray: Array<RecipeObj> = [];
+          let foodListArray: Array<FoodListObj> = [];
 
           //todo use this to create an obj
           //   repName should be the recipe name
           for (const prop in childData) {
-            console.log(childData[prop]);
+            let item = childData[prop];
+            // console.log(childData[prop]);
+            let newObj = {
+              name: item.Name,
+              category: item.Category,
+              note: item.Note,
+            };
+
+            foodListArray.push(newObj);
           }
           let obj = {
-            reipeName: childKey,
-            ingredientList: recipeArray,
+            recipeName: childKey,
+            ingredientList: foodListArray,
           };
-          console.log(obj);
-          //   addData(obj);
+          //   console.log(obj);
+          addData(obj);
         });
-        sortFoodList(displayArray);
+        // sortFoodList(displayArray);
+        console.log(displayArray);
       },
       {
         onlyOnce: false,
       }
     );
 
-    function addData(obj: FoodListObj) {
+    function addData(obj: RecipeObj) {
       displayArray.push(obj);
       setFoodList([...displayArray]);
     }
 
-    function sortFoodList(list: Array<FoodListObj>) {
-      list?.sort((a: any, b: any) => (a.category > b.category ? 1 : -1));
-      setFoodList(list);
-    }
+    // function sortFoodList(list: Array<RecipeObj>) {
+    //   list?.sort((a: any, b: any) => (a.category > b.category ? 1 : -1));
+    //   setFoodList(list);
+    // }
   }
 
   function handleRefresh(value: boolean) {
     setRefresh(value);
   }
 
-  function handleState(value: Array<FoodListObj>) {
+  function handleState(value: Array<RecipeObj>) {
     setFoodList([...value]);
   }
 
@@ -84,10 +93,10 @@ export default function MyRecipes() {
         console.log(val);
         return (
           <div
-            key={`zero-${index}-${val.name}`}
+            key={`zero-${index}-${val.recipeName}`}
             className={styles.foodItemContainer}
           >
-            {val.name}
+            {val.recipeName}
           </div>
         );
       })}
