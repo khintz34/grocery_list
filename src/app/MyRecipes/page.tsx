@@ -11,8 +11,7 @@ import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { RecipeObj } from "@/assets/RecipeObj";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
-// todo create itemObj for recipe instead of using FoodListoBj
-// each recipe will have multiple food list items in it
+//create new component for recipe so each one has its own state
 
 export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
@@ -102,11 +101,8 @@ export default function MyRecipes() {
       {foodList?.map((val, index) => {
         console.log(val);
         return (
-          <div key={`zero-${index}-${val.recipeName}`}>
-            <div
-              className={`${styles.foodItemContainer}`}
-              onClick={handleToggle}
-            >
+          <div key={`zero-${index}-${val.recipeName}`} onClick={handleToggle}>
+            <div className={`${styles.foodItemContainer}`}>
               <div className={styles.nameContainer}>
                 <div className={styles.name}>{val.recipeName}</div>
                 <div>{down ? <FaCaretDown /> : <FaCaretUp />}</div>
