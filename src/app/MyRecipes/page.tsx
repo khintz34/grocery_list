@@ -9,6 +9,7 @@ import { db } from "../../assets/firebase";
 import MyListItem from "@/Components/MyListItem/MyListItem";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { RecipeObj } from "@/assets/RecipeObj";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 // todo create itemObj for recipe instead of using FoodListoBj
 // each recipe will have multiple food list items in it
@@ -17,6 +18,8 @@ export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [foodList, setFoodList] = useState<Array<RecipeObj>>();
   const [refresh, setRefresh] = useState<boolean>(false);
+  const [down, setDown] = useState(true);
+  const [hidden, setHidden] = useState(`${styles.hide}`);
 
   useEffect(() => {
     setFoodList([]);
@@ -39,12 +42,8 @@ export default function MyRecipes() {
           const childData = childSnapShot.val();
           let recipeArray: Array<RecipeObj> = [];
           let foodListArray: Array<FoodListObj> = [];
-
-          //todo use this to create an obj
-          //   repName should be the recipe name
           for (const prop in childData) {
             let item = childData[prop];
-            // console.log(childData[prop]);
             let newObj = {
               name: item.Name,
               category: item.Category,
@@ -57,10 +56,9 @@ export default function MyRecipes() {
             recipeName: childKey,
             ingredientList: foodListArray,
           };
-          //   console.log(obj);
           addData(obj);
         });
-        // sortFoodList(displayArray);
+        sortFoodList(displayArray);
         console.log(displayArray);
       },
       {
@@ -73,10 +71,12 @@ export default function MyRecipes() {
       setFoodList([...displayArray]);
     }
 
-    // function sortFoodList(list: Array<RecipeObj>) {
-    //   list?.sort((a: any, b: any) => (a.category > b.category ? 1 : -1));
-    //   setFoodList(list);
-    // }
+    function sortFoodList(list: Array<RecipeObj>) {
+      list?.sort((a: RecipeObj, b: RecipeObj) =>
+        a.recipeName > b.recipeName ? 1 : -1
+      );
+      setFoodList(list);
+    }
   }
 
   function handleRefresh(value: boolean) {
@@ -87,16 +87,36 @@ export default function MyRecipes() {
     setFoodList([...value]);
   }
 
+  function handleToggle() {
+    if (down) {
+      setDown(false);
+      setHidden(`${styles.show}`);
+    } else {
+      setDown(true);
+      setHidden(`${styles.hide}`);
+    }
+  }
+
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
         console.log(val);
         return (
-          <div
-            key={`zero-${index}-${val.recipeName}`}
-            className={styles.foodItemContainer}
-          >
-            {val.recipeName}
+          <div key={`zero-${index}-${val.recipeName}`}>
+            <div
+              className={`${styles.foodItemContainer}`}
+              onClick={handleToggle}
+            >
+              <div className={styles.nameContainer}>
+                <div className={styles.name}>{val.recipeName}</div>
+                <div>{down ? <FaCaretDown /> : <FaCaretUp />}</div>
+              </div>
+              <div className={`${styles.foodItem} ${hidden}`}>
+                {val.ingredientList.map((food, i) => {
+                  return <div key={`${food.name}-food-${i}`}>{food.name}</div>;
+                })}
+              </div>
+            </div>
           </div>
         );
       })}
