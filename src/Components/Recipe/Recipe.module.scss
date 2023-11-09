@@ -36,3 +36,16 @@
 .foodItem {
   font-size: 2.3vh;
 }
+
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 3vw;
+}
+
+.btn {
+  color: black;
+  padding: 0 0.7vh;
+  border-radius: 20px;
+  border: 1px solid var(--secondary-background);
+}

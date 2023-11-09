@@ -5,6 +5,8 @@ import styles from "./Recipe.module.scss";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { FoodListObj } from "@/assets/FoodList";
 import RecipeItem from "../RecipeItem/RecipeItem";
+import { db } from "../../assets/firebase";
+import { getDatabase, push, ref, set, remove } from "firebase/database";
 
 interface Props {
   recipeName: string;
@@ -24,13 +26,29 @@ export default function Recipe(props: Props) {
       setHidden(`${styles.hide}`);
     }
   }
+
+  function addToList() {
+    props.ingredientList.forEach((food, index) => {
+      set(ref(db, "MyList/" + food.name), {
+        Name: food.name,
+        Category: food.category,
+        Note: food.note,
+      });
+    });
+  }
+
   return (
     <div>
       <div className={`${styles.foodItemContainer}`}>
         <div className={styles.nameContainer}>
-          <div className={styles.name}>{props.recipeName}</div>
-          <div onClick={handleToggle}>
-            {down ? <FaCaretDown /> : <FaCaretUp />}
+          <p className={styles.name}>{props.recipeName}</p>
+          <div className={styles.btnContainer}>
+            <button className={styles.btn} onClick={addToList}>
+              Add to List
+            </button>
+            <div onClick={handleToggle}>
+              {down ? <FaCaretDown /> : <FaCaretUp />}
+            </div>
           </div>
         </div>
         <div className={`${styles.foodItem} ${hidden}`}>
