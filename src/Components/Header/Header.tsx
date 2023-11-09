@@ -89,7 +89,7 @@ const Header = () => {
           </Link>
           <Link
             className=" whiteFont"
-            href={"/AddMemory"}
+            href={"/AddRecipe"}
             style={{
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
@@ -99,7 +99,22 @@ const Header = () => {
               className={`${styles.headerBtn} ${styles.menuItem}`}
               onClick={closeMenu}
             >
-              Previous Lists
+              Add Recipe
+            </li>
+          </Link>
+          <Link
+            className=" whiteFont"
+            href={"/StorePaths"}
+            style={{
+              backgroundColor: "var(--secondary-color)",
+              textDecoration: "none",
+            }}
+          >
+            <li
+              className={`${styles.headerBtn} ${styles.menuItem}`}
+              onClick={closeMenu}
+            >
+              My Store Path
             </li>
           </Link>
         </ul>

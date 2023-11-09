@@ -11,7 +11,6 @@ import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { RecipeObj } from "@/assets/RecipeObj";
 import Recipe from "@/Components/Recipe/Recipe";
 
-//create new component for recipe so each one has its own state
 // add recipe container
 
 export default function MyRecipes() {
