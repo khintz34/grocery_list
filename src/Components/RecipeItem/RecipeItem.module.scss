@@ -1,0 +1,15 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.propsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 3vw;
+}
+
+.pNote {
+  color: lightgray;
+}

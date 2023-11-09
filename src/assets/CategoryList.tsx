@@ -6,7 +6,7 @@ export const CategoryList = [
   "Canned Goods",
   "Dairy",
   "Deli",
-  "Dry Food",
+  "Dry Foods",
   "Frozen Foods",
   "Health Care",
   "Household Items",

@@ -11,7 +11,7 @@ export const ShoppingOrderList = [
   "Household Items",
   "Personal Care",
   "Health Care",
-  "Dry Food",
+  "Dry Foods",
   "Beverages",
   "Meat",
   "Dairy",

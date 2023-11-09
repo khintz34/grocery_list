@@ -9,16 +9,15 @@ import { db } from "../../assets/firebase";
 import MyListItem from "@/Components/MyListItem/MyListItem";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { RecipeObj } from "@/assets/RecipeObj";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import Recipe from "@/Components/Recipe/Recipe";
 
 //create new component for recipe so each one has its own state
+// add recipe container
 
 export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [foodList, setFoodList] = useState<Array<RecipeObj>>();
   const [refresh, setRefresh] = useState<boolean>(false);
-  const [down, setDown] = useState(true);
-  const [hidden, setHidden] = useState(`${styles.hide}`);
 
   useEffect(() => {
     setFoodList([]);
@@ -43,12 +42,12 @@ export default function MyRecipes() {
           let foodListArray: Array<FoodListObj> = [];
           for (const prop in childData) {
             let item = childData[prop];
+
             let newObj = {
               name: item.Name,
               category: item.Category,
               note: item.Note,
             };
-
             foodListArray.push(newObj);
           }
           let obj = {
@@ -58,7 +57,6 @@ export default function MyRecipes() {
           addData(obj);
         });
         sortFoodList(displayArray);
-        console.log(displayArray);
       },
       {
         onlyOnce: false,
@@ -86,34 +84,16 @@ export default function MyRecipes() {
     setFoodList([...value]);
   }
 
-  function handleToggle() {
-    if (down) {
-      setDown(false);
-      setHidden(`${styles.show}`);
-    } else {
-      setDown(true);
-      setHidden(`${styles.hide}`);
-    }
-  }
-
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
         console.log(val);
         return (
-          <div key={`zero-${index}-${val.recipeName}`} onClick={handleToggle}>
-            <div className={`${styles.foodItemContainer}`}>
-              <div className={styles.nameContainer}>
-                <div className={styles.name}>{val.recipeName}</div>
-                <div>{down ? <FaCaretDown /> : <FaCaretUp />}</div>
-              </div>
-              <div className={`${styles.foodItem} ${hidden}`}>
-                {val.ingredientList.map((food, i) => {
-                  return <div key={`${food.name}-food-${i}`}>{food.name}</div>;
-                })}
-              </div>
-            </div>
-          </div>
+          <Recipe
+            recipeName={val.recipeName}
+            ingredientList={val.ingredientList}
+            key={`zero-${index}-${val.recipeName}`}
+          />
         );
       })}
     </main>
