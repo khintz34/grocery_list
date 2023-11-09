@@ -93,7 +93,7 @@ export default function Home() {
         refVal={refresh}
         path={false}
         reset={() => console.log("reset")}
-        foodlist={[]}
+        foodlistProp={[]}
       />
     </main>
   );
