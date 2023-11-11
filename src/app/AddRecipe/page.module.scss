@@ -9,6 +9,12 @@
   gap: 1.5vh;
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
 .label {
   width: 35vw;
 }
@@ -16,4 +22,9 @@
 .inputContainer {
   display: flex;
   flex-direction: row;
+}
+
+.input {
+  color: black;
+  width: 37vw;
 }

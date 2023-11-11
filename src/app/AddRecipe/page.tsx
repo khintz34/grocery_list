@@ -6,6 +6,10 @@ import { getDatabase, push, ref, set, remove } from "firebase/database";
 
 export default function AddRecipe() {
   const [category, setCategory] = useState("Baby Food");
+  const [ingredientCount, setIngredientCount] = useState<number>(1);
+  // todo add component for ingredient. Each ingredient should have name, category, note
+  //todo create an array to add all ingredients to
+  //todo add a button that will push all info to RecipeList
 
   function writeUserData(e) {
     e.preventDefault();
@@ -21,26 +25,26 @@ export default function AddRecipe() {
 
   return (
     <main className={styles.main}>
-      <form action="">
+      <form action="" className={styles.form}>
         <div className={styles.inputContainer}>
           <label htmlFor="name" className={styles.label}>
             Recipe Name
           </label>
-          <input type="text" name="name" id="name" />
+          <input type="text" name="name" id="name" className={styles.input} />
         </div>
-        <div className={styles.inputContainer}>
+        <div className={`${styles.inputContainer} `}>
           <label htmlFor="categorySel" className={styles.label}>
             Category
           </label>
           <select
-            name="categorySel"
+            id="categorySel"
             onChange={(e) => {
               writeUserData(e);
               //   add();
               setCategory(e.target.value);
             }}
             defaultValue={"Baby Food"}
-            className={styles.select}
+            className={styles.input}
           >
             {CategoryList.map((option, index) => (
               <option
@@ -53,6 +57,7 @@ export default function AddRecipe() {
             ))}
           </select>
         </div>
+        <div className={`${styles.inputContainer} `}></div>
       </form>
     </main>
   );
