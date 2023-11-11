@@ -54,7 +54,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
-            as="font"
+            as="/"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -70,7 +70,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
-            as="font"
+            as="/MyFoods"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -86,7 +86,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
-            as="font"
+            as="/MyRecipes"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -102,7 +102,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
-            as="font"
+            as="/AddRecipe"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -118,7 +118,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
-            as="font"
+            as="StorePaths"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
