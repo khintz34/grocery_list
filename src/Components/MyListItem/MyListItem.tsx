@@ -7,6 +7,7 @@ import { db } from "../../assets/firebase";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
 import { BooleanLiteral } from "typescript";
+import { IconContext } from "react-icons";
 
 interface Props {
   name: string;
@@ -23,6 +24,7 @@ export default function MyListItem(props: Props) {
     `${props.note === "" ? styles.hide : styles.show}`
   );
   const [noteVal, setNoteVal] = useState<string>(props.note);
+  const iconStyles = { color: "blue" };
 
   function handleStatusClick() {
     if (inputStatus === styles.show) {
@@ -74,8 +76,13 @@ export default function MyListItem(props: Props) {
         />
       </div>
       <div className={styles.iconContainer}>
-        <TfiWrite onClick={handleStatusClick} />
-        <BsCheckCircle onClick={removeDataFromMyList} />
+        <IconContext.Provider value={{ className: "scale" }}>
+          <TfiWrite onClick={handleStatusClick} className={styles.scale} />
+          <BsCheckCircle
+            onClick={removeDataFromMyList}
+            className={styles.scale}
+          />
+        </IconContext.Provider>
       </div>
     </main>
   );

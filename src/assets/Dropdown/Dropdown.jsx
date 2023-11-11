@@ -3,6 +3,7 @@ import { CategoryList } from "../CategoryList";
 import styles from "./Dropdown.module.scss";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { BsPlusCircle, BsTrash } from "react-icons/bs";
+import { IconContext } from "react-icons";
 
 function Dropdown({ firstOpt, name, add, list, removeItem }) {
   const [category, setCategory] = useState(firstOpt);
@@ -66,12 +67,15 @@ function Dropdown({ firstOpt, name, add, list, removeItem }) {
           </option>
         ))}
       </select>
-      <BsPlusCircle onClick={addDataToMyList} />
-      <BsTrash
-        onClick={() => {
-          removeDataFromMyFoods();
-        }}
-      />
+      <IconContext.Provider value={{ className: "scale" }}>
+        <BsPlusCircle onClick={addDataToMyList} className={styles.scale} />
+        <BsTrash
+          className={styles.scale}
+          onClick={() => {
+            removeDataFromMyFoods();
+          }}
+        />
+      </IconContext.Provider>
     </div>
   );
 }

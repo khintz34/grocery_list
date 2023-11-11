@@ -29,3 +29,15 @@
   flex-direction: row;
   gap: 3vw;
 }
+
+.scale:active {
+  transform: scale(1.2);
+  fill: var(--secondary-background);
+}
+
+@media screen and (min-width: 1000px) {
+  .scale:hover {
+    transform: scale(1.4);
+    fill: var(--secondary-background);
+  }
+}
