@@ -1,0 +1,19 @@
+.main {
+  margin-bottom: 1.5vh;
+  border: 1px solid var(--secondary-background);
+  padding: 2vh;
+}
+
+.label {
+  width: 35vw;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.input {
+  color: black;
+  width: 37vw;
+}
