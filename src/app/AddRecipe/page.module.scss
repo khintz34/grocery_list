@@ -8,3 +8,12 @@
   background-color: var(--primary-background);
   gap: 1.5vh;
 }
+
+.label {
+  width: 35vw;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+}
