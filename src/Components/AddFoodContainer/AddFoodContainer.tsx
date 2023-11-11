@@ -101,10 +101,11 @@ export default function AddFoodContainer(props: Props) {
               onChange={(e) => setFoodName(e.target.value)}
               value={foodName}
               maxLength={30}
+              id="foodName"
             />
           </div>
           <div className={styles.inputContainer}>
-            <label htmlFor="cateogry" className={styles.label}>
+            <label htmlFor="category" className={styles.label}>
               Category
             </label>
             <select
@@ -113,6 +114,7 @@ export default function AddFoodContainer(props: Props) {
               }}
               className={styles.input}
               value={category}
+              id="category"
             >
               {CategoryList.map((option, index) => (
                 <option
@@ -137,6 +139,7 @@ export default function AddFoodContainer(props: Props) {
                 onChange={(e) => setFoodNote(e.target.value)}
                 value={foodNote}
                 maxLength={30}
+                id="foodNote"
               />
             </div>
           ) : (
@@ -150,6 +153,7 @@ export default function AddFoodContainer(props: Props) {
             }
             disabled={disabledBtn}
             onClick={(e) => writeUserData(e)}
+            name="button"
           >
             ADD
           </button>

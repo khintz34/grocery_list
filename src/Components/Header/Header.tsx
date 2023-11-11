@@ -33,8 +33,13 @@ const Header = () => {
           {headerText}
         </Link>
       </h1>
-      <label className={`${styles.hamburgerMenu}`}>
-        <input type="checkbox" onClick={handleToggle} ref={checkRef} />
+      <label className={`${styles.hamburgerMenu}`} htmlFor="hamburgerMenu">
+        <input
+          type="checkbox"
+          onClick={handleToggle}
+          ref={checkRef}
+          id="hamburgerMenu"
+        />
       </label>
       <div className={styles.sideNav}>
         <ul
@@ -49,6 +54,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
+            as="font"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -64,6 +70,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
+            as="font"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -79,6 +86,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
+            as="font"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -94,6 +102,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
+            as="font"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}
@@ -109,6 +118,7 @@ const Header = () => {
               backgroundColor: "var(--secondary-color)",
               textDecoration: "none",
             }}
+            as="font"
           >
             <li
               className={`${styles.headerBtn} ${styles.menuItem}`}

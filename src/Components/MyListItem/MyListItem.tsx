@@ -73,6 +73,7 @@ export default function MyListItem(props: Props) {
           className={styles.input}
           defaultValue={props.note}
           onChange={(e) => setNoteVal(e.target.value)}
+          name={`noteInput-${props.name}`}
         />
       </div>
       <div className={styles.iconContainer}>
