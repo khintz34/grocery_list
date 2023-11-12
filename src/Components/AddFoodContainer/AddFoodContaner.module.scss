@@ -3,19 +3,18 @@
   bottom: 0;
   width: 100vw;
   max-width: 100vw;
-  min-height: 10vh;
+  min-height: 12vh;
   max-height: 15vh;
   border: 2px solid var(--primary-font);
   z-index: 1;
   background-color: var(--secondary-background);
-  margin-top: 5vh;
 }
 
 .form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 9vw;
+  gap: 4.5vw;
   padding: 1vh 0;
   font-size: 16px;
 }
@@ -31,7 +30,7 @@
 
 .input {
   color: black;
-  width: 37vw;
+  width: 50vw;
   overflow: hidden;
 }
 
@@ -46,14 +45,14 @@
 }
 
 .button {
-  height: 8vh;
-  width: 8vh;
+  height: 6vh;
+  width: 6vh;
   border-radius: 50%;
   color: black;
   background-color: white;
   color: var(--secondary-background);
   border: 2px solid white;
-  font-size: 2vh;
+  font-size: 1.5vh;
   padding: 1vh;
 }
 
@@ -63,12 +62,12 @@
 }
 
 .disabledBtn {
-  height: 8vh;
-  width: 8vh;
+  height: 6vh;
+  width: 6vh;
   border-radius: 50%;
   background-color: lightgray;
   border: 2px solid var(--primary-font);
-  font-size: 2vh;
+  font-size: 1.5vh;
   padding: 1vh;
 }
 
@@ -79,5 +78,11 @@
 @media screen and (max-width: 767px) {
   .input {
     font-size: 16px;
+  }
+
+  .input:focus {
+    .main {
+      min-height: 15vh;
+    }
   }
 }
