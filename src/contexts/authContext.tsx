@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { Inter } from "next/font/google";
-import Header from "../Components/Header/Header.tsx";
+import Header from "../Components/Header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
