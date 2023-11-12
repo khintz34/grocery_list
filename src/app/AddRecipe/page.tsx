@@ -17,7 +17,7 @@ export default function AddRecipe() {
   //todo create an array to add all ingredients to
   //todo add a button that will push all info to RecipeList
 
-  function writeUserData(e) {
+  function writeUserData(e: React.ChangeEvent<any>) {
     e.preventDefault();
 
     const database = getDatabase();
@@ -29,7 +29,7 @@ export default function AddRecipe() {
     });
   }
 
-  function addAnotherIngredient(e) {
+  function addAnotherIngredient(e: React.ChangeEvent<any>) {
     e.preventDefault();
     const array = [...ingredientList];
     array.push({ name: "", category: "Baby Food", note: "" });

@@ -11,7 +11,7 @@ interface Props {
   refVal: boolean;
   path: boolean;
   reset: Function;
-  foodlistProp: Array<FoodListObj>;
+  foodlistProp: Array<FoodListObj> | undefined;
 }
 
 export default function AddFoodContainer(props: Props) {
@@ -68,7 +68,8 @@ export default function AddFoodContainer(props: Props) {
         });
       })
       .then(() => {
-        let newList: Array<FoodListObj> = [...props.foodlistProp];
+        let newList: Array<FoodListObj> =
+          props.foodlistProp === undefined ? [] : [...props.foodlistProp];
         let item = {} as FoodListObj;
         item.name = foodName;
         item.category = category;

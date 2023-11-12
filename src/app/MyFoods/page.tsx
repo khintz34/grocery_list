@@ -8,7 +8,6 @@ import { FoodListObj } from "@/assets/FoodList";
 import Dropdown from "../../assets/Dropdown/Dropdown";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { HeaderContext } from "@/contexts/authContext";
-import { FALSE } from "sass";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>([]);
