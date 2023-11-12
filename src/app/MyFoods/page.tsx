@@ -69,24 +69,26 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {foodList?.map((val, index) => {
-        return (
-          <div
-            key={`${val}-${index}`}
-            className={styles.foodContainer}
-            onChange={() => console.log("changed")}
-          >
-            <div className={styles.foodName}>{val.name}</div>
-            <Dropdown
-              firstOpt={val.category}
-              name={val.name}
-              add={() => setFoodList([...foodList])}
-              list={foodList}
-              removeItem={handleState}
-            />
-          </div>
-        );
-      })}
+      <div className={styles.listContainer}>
+        {foodList?.map((val, index) => {
+          return (
+            <div
+              key={`${val}-${index}`}
+              className={styles.foodContainer}
+              onChange={() => console.log("changed")}
+            >
+              <div className={styles.foodName}>{val.name}</div>
+              <Dropdown
+                firstOpt={val.category}
+                name={val.name}
+                add={() => setFoodList([...foodList])}
+                list={foodList}
+                removeItem={handleState}
+              />
+            </div>
+          );
+        })}
+      </div>
       <AddFoodContainer
         refresh={handleRefresh}
         refVal={refresh}

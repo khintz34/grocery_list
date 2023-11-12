@@ -10,6 +10,16 @@
   padding: 6rem 0;
 }
 
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1.5vh;
+  max-height: 75vh;
+  overflow: scroll;
+}
+
 .foodContainer {
   width: 90vw;
   display: flex;
