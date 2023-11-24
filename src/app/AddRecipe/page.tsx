@@ -9,28 +9,38 @@ import RecipeItemAdd from "@/Components/RecipeItemAdd/RecipeItemAdd";
 import { InitialIngredientList } from "@/assets/InitialIngredientList";
 
 export default function AddRecipe() {
-  const [category, setCategory] = useState("Baby Food");
-  const [ingredientCount, setIngredientCount] = useState<number>(1);
-  const [ingredientList, setIngredientList] = useState<Array<FoodListObj>>(
-    InitialIngredientList
-  );
+  //! todo fix this.
+  //! needs a copy of init array that is blank
+  //   const copyInitArray = InitialIngredientList.map((el) => {
+  //     console.log(el);
+  //     return (
+  //     {
+  //       (el.name = ""), (el.category = "Baby Food"), (el.note = "")
+  //     }
+  //     )
+  //   });
+
+  //   console.log(copyInitArray);
+  const [ingredientList, setIngredientList] = useState<Array<FoodListObj>>([
+    ...InitialIngredientList,
+  ]);
   const [recipeName, setRecipeName] = useState<string>("");
-  // todo add component for ingredient. Each ingredient should have name, category, note
-  //todo create an array to add all ingredients to
-  //todo add a button that will push all info to RecipeList
-  // todo add vaidation for each ingredient
 
   function writeUserData(e: React.ChangeEvent<any>) {
     e.preventDefault();
 
-    // ! fix this to add to recipe list onSubmit
     if (recipeName !== "") {
       ingredientList.forEach((ingredient: FoodListObj, index) => {
         if (ingredient.name !== "") {
           writeIngredient(ingredient);
-          console.log(ingredient);
         }
       });
+      alert(recipeName + " added to Recipes!");
+      setRecipeName("");
+      setIngredientList([...InitialIngredientList]);
+      console.log(InitialIngredientList);
+    } else {
+      alert("Enter a recipe name to add to recipe list");
     }
 
     function writeIngredient(ingredient: FoodListObj) {
@@ -51,28 +61,18 @@ export default function AddRecipe() {
     setIngredientList(array);
   }
 
-  //   function handleSubmit(e) {
-  //     e.preventDefault();
-  //     console.log(ingredientList);
-  //   }
-
   function handleUpdate(
     index: number,
     name: string,
     category: string,
     note: string
   ) {
-    console.log(index, name, category, note);
     const newArray = [...ingredientList];
-    console.log(newArray);
     newArray[index].name = name;
     newArray[index].category = category;
     newArray[index].note = note;
-    console.log(newArray[index]);
 
     setIngredientList(newArray);
-
-    // console.log(ingredientList[index]);
   }
 
   return (
@@ -88,6 +88,7 @@ export default function AddRecipe() {
             id="name"
             className={styles.input}
             onChange={(e) => setRecipeName(e.target.value)}
+            value={recipeName}
           />
         </div>
         {ingredientList.map((ingred, index) => {

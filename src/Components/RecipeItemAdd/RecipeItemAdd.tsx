@@ -16,14 +16,8 @@ export default function RecipeItemAdd(props: Props) {
   const [name, setName] = useState<string>("");
 
   useEffect(() => {
-    console.log(props.onChange);
-    handleChange();
     props.onChange(num, name, category, note);
   }, [name, category, note]);
-
-  function handleChange() {
-    console.log(name, category, note);
-  }
 
   return (
     <main className={styles.main}>
@@ -46,7 +40,6 @@ export default function RecipeItemAdd(props: Props) {
         <select
           id="categorySel"
           onChange={(e) => {
-            //   add();
             setCategory(e.target.value);
           }}
           defaultValue={"Baby Food"}
