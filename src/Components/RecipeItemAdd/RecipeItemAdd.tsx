@@ -1,11 +1,29 @@
 "use client";
 import styles from "./RecipeItemAdd.module.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CategoryList } from "../../assets/CategoryList";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
 
-export default function RecipeItemAdd() {
+interface Props {
+  num: number;
+  onChange: Function;
+}
+
+export default function RecipeItemAdd(props: Props) {
   const [category, setCategory] = useState("Baby Food");
+  const [num, setNum] = useState<number>(props.num);
+  const [note, setNote] = useState<string>("");
+  const [name, setName] = useState<string>("");
+
+  useEffect(() => {
+    console.log(props.onChange);
+    handleChange();
+    props.onChange(num, name, category, note);
+  }, [name, category, note]);
+
+  function handleChange() {
+    console.log(name, category, note);
+  }
 
   return (
     <main className={styles.main}>
@@ -13,7 +31,13 @@ export default function RecipeItemAdd() {
         <label htmlFor="name" className={styles.label}>
           Ingredient:
         </label>
-        <input type="text" name="name" id="name" className={styles.input} />
+        <input
+          type="text"
+          name="name"
+          id="name"
+          className={styles.input}
+          onChange={(e) => setName(e.target.value)}
+        />
       </div>
       <div className={`${styles.inputContainer} `}>
         <label htmlFor="categorySel" className={styles.label}>
@@ -39,7 +63,13 @@ export default function RecipeItemAdd() {
         <label htmlFor="note" className={styles.label}>
           Note:
         </label>
-        <input type="text" name="note" id="note" className={styles.input} />
+        <input
+          type="text"
+          name="note"
+          id="note"
+          className={styles.input}
+          onChange={(e) => setNote(e.target.value)}
+        />
       </div>
     </main>
   );
