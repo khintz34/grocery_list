@@ -58,7 +58,6 @@ export default function RecipeItemAdd(props: Props) {
           onChange={(e) => {
             setCategory(e.target.value);
           }}
-          defaultValue={"Baby Food"}
           value={category}
           className={styles.input}
         >

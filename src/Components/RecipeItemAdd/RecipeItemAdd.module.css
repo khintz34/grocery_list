@@ -1,7 +1,12 @@
 .main {
   margin-bottom: 1.5vh;
   border: 1px solid var(--secondary-background);
+  border-radius: 25px;
   padding: 2vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
 }
 
 .label {
@@ -15,7 +20,7 @@
 
 .input {
   color: black;
-  width: 37vw;
+  width: 42vw;
 }
 
 @media screen and (max-width: 767px) {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./page.module.scss";
 import { CategoryList } from "../../assets/CategoryList";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
@@ -19,6 +19,8 @@ export default function AddRecipe() {
     useState<Array<FoodListObj>>(copyInitArray);
 
   const [recipeName, setRecipeName] = useState<string>("");
+  const refer = useRef<any>();
+  const [addedEls, SetAddedEls] = useState<number>(0);
 
   function writeUserData(e: React.ChangeEvent<any>) {
     e.preventDefault();
@@ -47,11 +49,23 @@ export default function AddRecipe() {
     }
   }
 
+  useEffect(() => {
+    if (addedEls > 0) {
+      const lastChildElement = refer.current?.lastElementChild;
+      lastChildElement?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [addedEls]);
+
   function addAnotherIngredient(e: React.ChangeEvent<any>) {
     e.preventDefault();
     const array = [...ingredientList];
     array.push({ name: "", category: "Baby Food", note: "" });
     setIngredientList(array);
+    let newEl = addedEls + 1;
+    SetAddedEls(newEl);
   }
 
   function handleUpdate(
@@ -84,18 +98,20 @@ export default function AddRecipe() {
             value={recipeName}
           />
         </div>
-        {ingredientList.map((ingred, index) => {
-          return (
-            <RecipeItemAdd
-              key={`ingredientListInit-${index}`}
-              num={index}
-              onChange={handleUpdate}
-              inputName={ingred.name}
-              inputCat={ingred.category}
-              inputNote={ingred.note}
-            />
-          );
-        })}
+        <div ref={refer}>
+          {ingredientList.map((ingred, index) => {
+            return (
+              <RecipeItemAdd
+                key={`ingredientListInit-${index}`}
+                num={index}
+                onChange={handleUpdate}
+                inputName={ingred.name}
+                inputCat={ingred.category}
+                inputNote={ingred.note}
+              />
+            );
+          })}
+        </div>
         <div className={styles.buttonContainer}>
           <button className={styles.button} onClick={addAnotherIngredient}>
             Add Another Ingredient
