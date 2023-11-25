@@ -86,7 +86,6 @@ export default function MyRecipes() {
   return (
     <main className={styles.main}>
       {foodList?.map((val, index) => {
-        console.log(val);
         return (
           <Recipe
             recipeName={val.recipeName}

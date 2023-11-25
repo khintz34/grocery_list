@@ -25,7 +25,11 @@ export default function RecipeItem(props: Props) {
     <main className={styles.main}>
       <div className={styles.propsContainer}>
         <p className={styles.pName}>{props.foodItem.name}</p>
-        <p className={styles.pNote}>({props.foodItem.note})</p>
+        {props.foodItem.note !== "" ? (
+          <p className={styles.pNote}>({props.foodItem.note})</p>
+        ) : (
+          <p className={styles.pNote}>{props.foodItem.note}</p>
+        )}
       </div>
       <BsPlusCircle onClick={addToMyList} />
     </main>
