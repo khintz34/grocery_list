@@ -11,8 +11,6 @@ import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { RecipeObj } from "@/assets/RecipeObj";
 import Recipe from "@/Components/Recipe/Recipe";
 
-//todo remove () when no note
-
 export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [foodList, setFoodList] = useState<Array<RecipeObj>>();
@@ -91,6 +89,8 @@ export default function MyRecipes() {
             recipeName={val.recipeName}
             ingredientList={val.ingredientList}
             key={`zero-${index}-${val.recipeName}`}
+            removeItem={handleState}
+            list={foodList}
           />
         );
       })}

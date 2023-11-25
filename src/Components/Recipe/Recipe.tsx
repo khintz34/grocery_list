@@ -2,15 +2,19 @@
 
 import React, { useState, useEffect } from "react";
 import styles from "./Recipe.module.scss";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import { FaCaretDown, FaCaretUp, FaTrash } from "react-icons/fa";
 import { FoodListObj } from "@/assets/FoodList";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import { db } from "../../assets/firebase";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
+import { IconContext } from "react-icons";
+import { BsTrash } from "react-icons/bs";
 
 interface Props {
   recipeName: string;
   ingredientList: Array<FoodListObj>;
+  removeItem: Function;
+  list: Array<FoodListObj>;
 }
 
 export default function Recipe(props: Props) {
@@ -37,6 +41,19 @@ export default function Recipe(props: Props) {
     });
   }
 
+  function removeDataFromMyRecipes() {
+    let newList = props.list;
+    const index = newList.map((e) => e.name).indexOf(props.recipeName);
+    newList.splice(index, 1);
+
+    const database = getDatabase();
+    remove(ref(database, "RecipeList/" + props.recipeName)).catch((error) => {
+      console.log(name, "not deleted from MyRecipes");
+    });
+
+    props.removeItem(newList);
+  }
+
   return (
     <div>
       <div className={`${styles.foodItemContainer}`}>
@@ -57,6 +74,15 @@ export default function Recipe(props: Props) {
               <RecipeItem key={`${food.name}-food-${i}`} foodItem={food} />
             );
           })}
+          <button
+            className={`${styles.btn} ${styles.delete}`}
+            onClick={removeDataFromMyRecipes}
+          >
+            Delete Recipe
+            <IconContext.Provider value={{ className: "deleteBtn" }}>
+              <BsTrash className={styles.deleteBtn} />
+            </IconContext.Provider>
+          </button>
         </div>
       </div>
     </div>
