@@ -44,7 +44,7 @@ export default function Recipe(props: Props) {
 
   function removeDataFromMyRecipes() {
     let newList = props.list;
-    const index = newList.map((e) => e.name).indexOf(props.recipeName);
+    const index = newList.map((e) => e.recipeName).indexOf(props.recipeName);
     newList.splice(index, 1);
 
     const database = getDatabase();
