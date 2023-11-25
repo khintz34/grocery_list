@@ -9,12 +9,13 @@ import { db } from "../../assets/firebase";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { IconContext } from "react-icons";
 import { BsTrash } from "react-icons/bs";
+import { RecipeObj } from "@/assets/RecipeObj";
 
 interface Props {
   recipeName: string;
   ingredientList: Array<FoodListObj>;
   removeItem: Function;
-  list: Array<FoodListObj>;
+  list: Array<RecipeObj>;
 }
 
 export default function Recipe(props: Props) {
