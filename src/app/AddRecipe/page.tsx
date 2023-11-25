@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { CategoryList } from "../../assets/CategoryList";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
@@ -11,19 +11,13 @@ import { InitialIngredientList } from "@/assets/InitialIngredientList";
 export default function AddRecipe() {
   //! todo fix this.
   //! needs a copy of init array that is blank
-  //   const copyInitArray = InitialIngredientList.map((el) => {
-  //     console.log(el);
-  //     return (
-  //     {
-  //       (el.name = ""), (el.category = "Baby Food"), (el.note = "")
-  //     }
-  //     )
-  //   });
+  const copyInitArray = JSON.parse(JSON.stringify(InitialIngredientList));
+  function createCopy() {
+    return JSON.parse(JSON.stringify(InitialIngredientList));
+  }
+  const [ingredientList, setIngredientList] =
+    useState<Array<FoodListObj>>(copyInitArray);
 
-  //   console.log(copyInitArray);
-  const [ingredientList, setIngredientList] = useState<Array<FoodListObj>>([
-    ...InitialIngredientList,
-  ]);
   const [recipeName, setRecipeName] = useState<string>("");
 
   function writeUserData(e: React.ChangeEvent<any>) {
@@ -37,8 +31,7 @@ export default function AddRecipe() {
       });
       alert(recipeName + " added to Recipes!");
       setRecipeName("");
-      setIngredientList([...InitialIngredientList]);
-      console.log(InitialIngredientList);
+      setIngredientList(createCopy());
     } else {
       alert("Enter a recipe name to add to recipe list");
     }
@@ -97,6 +90,9 @@ export default function AddRecipe() {
               key={`ingredientListInit-${index}`}
               num={index}
               onChange={handleUpdate}
+              inputName={ingred.name}
+              inputCat={ingred.category}
+              inputNote={ingred.note}
             />
           );
         })}

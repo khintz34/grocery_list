@@ -7,17 +7,32 @@ import { getDatabase, push, ref, set, remove } from "firebase/database";
 interface Props {
   num: number;
   onChange: Function;
+  inputName: string;
+  inputCat: string;
+  inputNote: string;
 }
 
 export default function RecipeItemAdd(props: Props) {
-  const [category, setCategory] = useState("Baby Food");
+  const [category, setCategory] = useState(props.inputCat);
   const [num, setNum] = useState<number>(props.num);
-  const [note, setNote] = useState<string>("");
-  const [name, setName] = useState<string>("");
+  const [note, setNote] = useState<string>(props.inputNote);
+  const [name, setName] = useState<string>(props.inputName);
 
   useEffect(() => {
     props.onChange(num, name, category, note);
   }, [name, category, note]);
+
+  useEffect(() => {
+    setName(props.inputName);
+  }, [props.inputName]);
+
+  useEffect(() => {
+    setCategory(props.inputCat);
+  }, [props.inputCat]);
+
+  useEffect(() => {
+    setNote(props.inputNote);
+  }, [props.inputNote]);
 
   return (
     <main className={styles.main}>
@@ -31,6 +46,7 @@ export default function RecipeItemAdd(props: Props) {
           id="name"
           className={styles.input}
           onChange={(e) => setName(e.target.value)}
+          value={name}
         />
       </div>
       <div className={`${styles.inputContainer} `}>
@@ -43,6 +59,7 @@ export default function RecipeItemAdd(props: Props) {
             setCategory(e.target.value);
           }}
           defaultValue={"Baby Food"}
+          value={category}
           className={styles.input}
         >
           {CategoryList.map((option, index) => (
@@ -62,6 +79,7 @@ export default function RecipeItemAdd(props: Props) {
           id="note"
           className={styles.input}
           onChange={(e) => setNote(e.target.value)}
+          value={note}
         />
       </div>
     </main>
