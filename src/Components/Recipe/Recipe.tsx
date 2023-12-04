@@ -16,6 +16,7 @@ interface Props {
   ingredientList: Array<FoodListObj>;
   removeItem: Function;
   list: Array<RecipeObj>;
+  refresh: Function;
 }
 
 export default function Recipe(props: Props) {
@@ -53,6 +54,7 @@ export default function Recipe(props: Props) {
     });
 
     props.removeItem(newList);
+    props.refresh(true);
   }
 
   return (

@@ -91,6 +91,7 @@ export default function MyRecipes() {
             key={`zero-${index}-${val.recipeName}`}
             removeItem={handleState}
             list={foodList}
+            refresh={handleRefresh}
           />
         );
       })}
