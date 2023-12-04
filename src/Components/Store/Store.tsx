@@ -19,8 +19,8 @@ interface Props {
   index: number;
 }
 
-//todo finish the dnd kit. Not quite working. Looks like state is updating too quickly
-//todo use bootstrap cards..?
+//todo add each item into a card to it looks better
+//todo create save btn that uploads to firebase
 
 export default function Store(props: Props) {
   const [down, setDown] = useState(true);
