@@ -6,12 +6,26 @@ import { db } from "../../assets/firebase";
 import { useState, useEffect, useContext } from "react";
 import { HeaderContext } from "@/contexts/authContext";
 import { isIndexSignatureDeclaration } from "typescript";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
+import Store from "@/Components/Store/Store";
 
 export default function Home() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [shoppingOrder, setShoppingOrder] = useState<string>("Default");
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<any>>([]);
+  const [down, setDown] = useState(true);
+  const [hidden, setHidden] = useState(`${styles.hide}`);
+
+  function handleToggle() {
+    if (down) {
+      setDown(false);
+      setHidden(`${styles.show}`);
+    } else {
+      setDown(true);
+      setHidden(`${styles.hide}`);
+    }
+  }
 
   useEffect(() => {
     getShoppingOrderLists();
@@ -52,13 +66,14 @@ export default function Home() {
   return (
     <main className={styles.main}>
       My Store Paths:
-      <div>
-        {shoppingOrderArray.map((val, index) => {
+      <div className={styles.paths}>
+        {shoppingOrderArray.map((store, index) => {
           return (
-            <div key={index}>
-              {val.store}
-              {val.path}
-            </div>
+            <Store
+              store={store}
+              index={index}
+              key={`store-${store.store}-${index}`}
+            />
           );
         })}
       </div>

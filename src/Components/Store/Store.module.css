@@ -1,12 +1,17 @@
 .main {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
-  background-color: var(--primary-background);
-  gap: 2vh;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.propsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 3vw;
+}
+
+.pNote {
+  color: lightgray;
 }
 
 .paths {
