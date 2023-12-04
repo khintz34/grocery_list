@@ -1,23 +1,22 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./page.module.scss";
 import { ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../assets/firebase";
 import { useState, useEffect, useContext } from "react";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import { FoodListObj } from "@/assets/FoodList";
 import { HeaderContext } from "@/contexts/authContext";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import MyListItem from "@/Components/MyListItem/MyListItem";
-import { ShoppingOrderList } from "@/assets/ShoppingOrderList";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [refresh, setRefresh] = useState<boolean>(false);
-  let prevCat = "";
-  // todo display category for each item
+  const [shoppingOrder, setShoppingOrder] = useState<string>("Default");
+  const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<string>>(
+    []
+  );
 
   useEffect(() => {
     setFoodList([]);
@@ -37,7 +36,7 @@ export default function Home() {
   }
 
   async function getUserData() {
-    let holdingArray: Array<string> = [];
+    getShoppingOrderList();
     const boardRef = databaseRef(db, "MyList/");
     let displayArray: Array<any> = [];
     onValue(
@@ -68,10 +67,29 @@ export default function Home() {
     function sortFoodList(list: Array<FoodListObj>) {
       list.sort(
         (a, b) =>
-          ShoppingOrderList.indexOf(a.category) -
-          ShoppingOrderList.indexOf(b.category)
+          shoppingOrderArray.indexOf(a.category) -
+          shoppingOrderArray.indexOf(b.category)
       );
       setFoodList(list);
+    }
+
+    async function getShoppingOrderList() {
+      const Ref = databaseRef(db, `ShoppingOrderList/${shoppingOrder}`);
+      let displayArray: Array<string> = [];
+      onValue(
+        Ref,
+        (snapshot) => {
+          snapshot.forEach((childSnapShot) => {
+            const childKey = childSnapShot.key;
+            const childData = childSnapShot.val();
+            displayArray.push(childData);
+          });
+          setShoppingOrderArray(displayArray);
+        },
+        {
+          onlyOnce: false,
+        }
+      );
     }
   }
 
