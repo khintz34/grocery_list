@@ -14,18 +14,7 @@ export default function Home() {
   const [refresh, setRefresh] = useState<boolean>(false);
   const [shoppingOrder, setShoppingOrder] = useState<string>("Default");
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<any>>([]);
-  const [down, setDown] = useState(true);
-  const [hidden, setHidden] = useState(`${styles.hide}`);
-
-  function handleToggle() {
-    if (down) {
-      setDown(false);
-      setHidden(`${styles.show}`);
-    } else {
-      setDown(true);
-      setHidden(`${styles.hide}`);
-    }
-  }
+ 
 
   useEffect(() => {
     getShoppingOrderLists();

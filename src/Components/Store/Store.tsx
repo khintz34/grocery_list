@@ -19,7 +19,6 @@ interface Props {
   index: number;
 }
 
-//todo add each item into a card to it looks better
 //todo create save btn that uploads to firebase
 
 export default function Store(props: Props) {
