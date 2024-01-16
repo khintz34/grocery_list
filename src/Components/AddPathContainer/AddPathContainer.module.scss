@@ -1,0 +1,83 @@
+.main {
+  position: fixed;
+  bottom: 0;
+  width: 100vw;
+  max-width: 100vw;
+  height: 14vh;
+  border: 2px solid var(--primary-font);
+  z-index: 1;
+  background-color: var(--secondary-background);
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4.5vw;
+  padding: 2vh 0;
+  font-size: 16px;
+}
+
+.formInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  height: 10vh;
+  justify-content: center;
+  padding: 1vh 0 1vh 3vw;
+  align-items: center;
+}
+
+.input {
+  color: black;
+  width: 50vw;
+  overflow: hidden;
+  padding-left: 1vw;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 4vw;
+}
+
+.label {
+  width: 20vw;
+}
+
+.button {
+  height: 6vh;
+  width: 6vh;
+  border-radius: 50%;
+  color: black;
+  background-color: white;
+  color: var(--secondary-background);
+  border: 2px solid white;
+  font-size: 1.5vh;
+  padding: 1vh;
+}
+
+.button:hover {
+  background-color: var(--primary-background);
+  transform: scale(1.1);
+}
+
+.disabledBtn {
+  height: 6vh;
+  width: 6vh;
+  border-radius: 50%;
+  background-color: lightgray;
+  border: 2px solid var(--primary-font);
+  font-size: 1.5vh;
+  padding: 1vh;
+}
+
+.hide {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .input {
+    font-size: 16px;
+  }
+}

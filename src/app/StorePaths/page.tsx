@@ -8,13 +8,13 @@ import { HeaderContext } from "@/contexts/authContext";
 import { isIndexSignatureDeclaration } from "typescript";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import Store from "@/Components/Store/Store";
+import AddPathContainer from "@/Components/AddPathContainer/AddPathContainer";
 
 export default function Home() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [shoppingOrder, setShoppingOrder] = useState<string>("Default");
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<any>>([]);
- 
 
   useEffect(() => {
     getShoppingOrderLists();
@@ -66,6 +66,13 @@ export default function Home() {
           );
         })}
       </div>
+      <AddPathContainer
+        refresh={handleRefresh}
+        refVal={refresh}
+        path={false}
+        reset={() => console.log("reset")}
+        foodlistProp={[]}
+      />
     </main>
   );
 }
