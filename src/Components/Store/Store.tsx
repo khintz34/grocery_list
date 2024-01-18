@@ -1,7 +1,7 @@
 import { FoodListObj } from "@/assets/FoodList";
 import styles from "./Store.module.css";
 import { BsPlusCircle } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -51,6 +51,10 @@ export default function Store(props: Props) {
       });
     }
   }
+
+  useEffect(() => {
+    console.log(listArray);
+  }, [listArray]);
 
   return (
     <main

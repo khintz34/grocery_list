@@ -4,20 +4,30 @@ import { CategoryList } from "@/assets/CategoryList";
 import { db } from "../../assets/firebase";
 import { getDatabase, push, ref, set } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
+import { StorePathObj } from "@/assets/StorePathObj";
+import { constants } from "fs";
 
 interface Props {
   refresh: Function;
   refVal: boolean;
-  path: boolean;
   reset: Function;
-  foodlistProp: Array<FoodListObj> | undefined;
+  pathArray: Array<StorePathObj> | undefined;
 }
+
+//todo refresh after adding a new category to a list
 
 export default function AddPathContainer(props: Props) {
   const [storeName, setStoreName] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
   const [methodAdd, setMethodAdd] = useState<boolean>(true);
+  const [storeLength, setStoreLength] = useState<number>(0);
+
+  type CategoryObjext = { [key: string]: string };
+
+  useEffect(() => {
+    console.log(props);
+  }, []);
 
   useEffect(() => {
     if (
@@ -34,19 +44,41 @@ export default function AddPathContainer(props: Props) {
 
   function writeUserData(e: any) {
     e.preventDefault();
+    const checkStore: number = checkForStore(storeName);
+    console.log("Check store: ", checkStore);
 
-    if (props.path) {
-      addMyList(e);
+    if (checkStore > 0) {
+      console.log("FOUND: ", storeName, " --> ", checkStore);
+      addCateogryToList(checkStore);
     } else {
-      addFoodList();
+      console.log("NOT FOUND");
+      addCateogryToList(checkStore);
     }
   }
 
-  function addFoodList() {
-    set(ref(db, "ShoppingOrderList/" + storeName), {
-      Name: foodName,
-      Category: category,
-    })
+  function checkForStore(storeName: String) {
+    console.log(props.pathArray);
+    for (let i = 0; i < props.pathArray.length; i++) {
+      if (
+        props.pathArray[i].storeName.toLocaleUpperCase() ===
+        storeName.toLocaleUpperCase()
+      ) {
+        console.log(props.pathArray[i].path.length);
+        setStoreLength(props.pathArray[i].path.length);
+        return props.pathArray[i].path.length;
+      }
+    }
+
+    return 0;
+  }
+
+  function addCateogryToList(nextNum: number) {
+    console.log(nextNum);
+    let key = nextNum.toString();
+    let obj = {} as CategoryObjext;
+    obj[key] = category;
+    console.log(obj);
+    set(ref(db, "ShoppingOrderList/" + storeName + "/" + key), category)
       .then(() => {
         props.refresh(!props.refVal);
         setStoreName("");
@@ -56,37 +88,37 @@ export default function AddPathContainer(props: Props) {
       });
   }
 
-  function addMyList(e: any) {
-    set(ref(db, "MyList/" + foodName), {
-      Name: foodName,
-      Category: category,
-      Note: foodNote,
-    })
-      .then(() => {
-        set(ref(db, "FoodList/" + foodName), {
-          Name: foodName,
-          Category: category,
-        });
-      })
-      .then(() => {
-        let newList: Array<FoodListObj> =
-          props.foodlistProp === undefined ? [] : [...props.foodlistProp];
-        let item = {} as FoodListObj;
-        item.name = foodName;
-        item.category = category;
-        item.note = foodNote;
-        newList.push(item);
-        props.reset(newList);
-      })
-      .then(() => {
-        setFoodName("");
-        setFoodNote("");
-        props.refresh(!props.refVal);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
+  // function addMyList(e: any) {
+  //   set(ref(db, "MyList/" + foodName), {
+  //     Name: foodName,
+  //     Category: category,
+  //     Note: foodNote,
+  //   })
+  //     .then(() => {
+  //       set(ref(db, "FoodList/" + foodName), {
+  //         Name: foodName,
+  //         Category: category,
+  //       });
+  //     })
+  //     .then(() => {
+  //       let newList: Array<FoodListObj> =
+  //         props.foodlistProp === undefined ? [] : [...props.foodlistProp];
+  //       let item = {} as FoodListObj;
+  //       item.name = foodName;
+  //       item.category = category;
+  //       item.note = foodNote;
+  //       newList.push(item);
+  //       props.reset(newList);
+  //     })
+  //     .then(() => {
+  //       setFoodName("");
+  //       setFoodNote("");
+  //       props.refresh(!props.refVal);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }
 
   return (
     <main className={styles.main}>
@@ -100,7 +132,7 @@ export default function AddPathContainer(props: Props) {
               type="text"
               placeholder="Store Name"
               className={styles.input}
-              onChange={(e) => setStoreName(e.target.value)}
+              onChange={(e) => setStoreName(e.target.value.toLocaleUpperCase())}
               value={storeName}
               maxLength={30}
               id="storeName"
@@ -114,7 +146,7 @@ export default function AddPathContainer(props: Props) {
               type="text"
               placeholder="Category"
               className={styles.input}
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => setCategory(e.target.value.toUpperCase())}
               value={category}
               maxLength={30}
               id="category"
@@ -122,20 +154,26 @@ export default function AddPathContainer(props: Props) {
           </div>
           <div className={styles.inputContainer}>
             <legend className={styles.label}>Method:</legend>
-            <label htmlFor="methodAdd">Add</label>
-            <input
-              type="radio"
-              id="methodAdd"
-              checked={methodAdd}
-              onClick={() => setMethodAdd(true)}
-            />
-            <label htmlFor="methodRemove">Remove</label>
-            <input
-              type="radio"
-              id="methodRemove"
-              checked={!methodAdd}
-              onClick={() => setMethodAdd(false)}
-            />
+            <div className={styles.methodContainer}>
+              <div className={styles.method}>
+                <label htmlFor="methodAdd">Add</label>
+                <input
+                  type="radio"
+                  id="methodAdd"
+                  checked={methodAdd}
+                  onChange={() => setMethodAdd(true)}
+                />
+              </div>
+              <div className={styles.method}>
+                <label htmlFor="methodRemove">Remove</label>
+                <input
+                  type="radio"
+                  id="methodRemove"
+                  checked={!methodAdd}
+                  onChange={() => setMethodAdd(false)}
+                />
+              </div>
+            </div>
           </div>
         </div>
         <div>
@@ -144,7 +182,7 @@ export default function AddPathContainer(props: Props) {
               disabledBtn ? `${styles.disabledBtn}` : `${styles.button}`
             }
             disabled={disabledBtn}
-            // onClick={(e) => writeUserData(e)}
+            onClick={(e) => writeUserData(e)}
             name="button"
           >
             ADD

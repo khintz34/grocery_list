@@ -33,6 +33,10 @@
   width: 50vw;
   overflow: hidden;
   padding-left: 1vw;
+
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 .inputContainer {
@@ -76,8 +80,16 @@
   display: none;
 }
 
-@media screen and (max-width: 767px) {
-  .input {
-    font-size: 16px;
-  }
+.methodContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 50vw;
+  gap: 10vw;
+}
+
+.method {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
 }

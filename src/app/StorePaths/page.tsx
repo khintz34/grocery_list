@@ -9,12 +9,14 @@ import { isIndexSignatureDeclaration } from "typescript";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import Store from "@/Components/Store/Store";
 import AddPathContainer from "@/Components/AddPathContainer/AddPathContainer";
+import { StorePathObj } from "@/assets/StorePathObj";
 
 export default function Home() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [refresh, setRefresh] = useState<boolean>(false);
   const [shoppingOrder, setShoppingOrder] = useState<string>("Default");
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<any>>([]);
+  const [storePaths, setStorePaths] = useState<Array<StorePathObj>>([]);
 
   useEffect(() => {
     getShoppingOrderLists();
@@ -28,15 +30,25 @@ export default function Home() {
     setRefresh(value);
   }
 
+  useEffect(() => {
+    console.log("storePaths", storePaths);
+  }, [storePaths]);
+
   async function getShoppingOrderLists() {
     const Ref = databaseRef(db, `ShoppingOrderList/`);
     let displayArray: Array<any> = [];
+    let pathArray: Array<StorePathObj> = [];
     onValue(
       Ref,
       (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const childKey = childSnapShot.key;
           const childData = childSnapShot.val();
+          let pathObj = {
+            storeName: childKey,
+            path: childData,
+          };
+          pathArray.push(pathObj);
           console.log(childData);
           let obj = {
             store: childKey,
@@ -45,6 +57,7 @@ export default function Home() {
           displayArray.push(obj);
         });
         setShoppingOrderArray(displayArray);
+        setStorePaths(pathArray);
       },
       {
         onlyOnce: false,
@@ -69,9 +82,8 @@ export default function Home() {
       <AddPathContainer
         refresh={handleRefresh}
         refVal={refresh}
-        path={false}
         reset={() => console.log("reset")}
-        foodlistProp={[]}
+        pathArray={storePaths}
       />
     </main>
   );
