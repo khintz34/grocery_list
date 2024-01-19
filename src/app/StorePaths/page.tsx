@@ -62,8 +62,8 @@ export default function Home() {
           console.log(obj);
           displayArray.push(obj);
         });
-        console.log("Display Array: ", displayArray);
-        console.log("Path Array: ", pathArray);
+        // console.log("Display Array: ", displayArray);
+        // console.log("Path Array: ", pathArray);
         setShoppingOrderArray(displayArray);
         setStorePaths(pathArray);
       },

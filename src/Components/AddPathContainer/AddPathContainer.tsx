@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./AddPathContainer.module.scss";
 import { CategoryList } from "@/assets/CategoryList";
 import { db } from "../../assets/firebase";
-import { getDatabase, push, ref, set } from "firebase/database";
+import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
 import { StorePathObj } from "@/assets/StorePathObj";
 import { constants } from "fs";
@@ -21,7 +21,6 @@ export default function AddPathContainer(props: Props) {
   const [category, setCategory] = useState<string>("");
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
   const [methodAdd, setMethodAdd] = useState<boolean>(true);
-  const [storeLength, setStoreLength] = useState<number>(0);
 
   type CategoryObjext = { [key: string]: string };
 
@@ -44,20 +43,6 @@ export default function AddPathContainer(props: Props) {
     addCateogryToList(checkForStore(storeName));
   }
 
-  function checkForStore(storeName: String) {
-    for (let i = 0; i < props.pathArray.length; i++) {
-      if (
-        props.pathArray[i].storeName.toLocaleUpperCase() ===
-        storeName.toLocaleUpperCase()
-      ) {
-        setStoreLength(props.pathArray[i].path.length);
-        return props.pathArray[i].path.length;
-      }
-    }
-
-    return 0;
-  }
-
   function addCateogryToList(nextNum: number) {
     let key = nextNum.toString();
     let obj = {} as CategoryObjext;
@@ -73,6 +58,81 @@ export default function AddPathContainer(props: Props) {
       });
   }
 
+  function removeUserData(e: any) {
+    e.preventDefault();
+    let found: Array<number> = returnStoreIndex(storeName);
+    console.log(found);
+
+    if (found[0] > 0) {
+      if (found[1] < found[2]) removeCategoryFromList(found[1]);
+    }
+  }
+
+  function removeCategoryFromList(indexNum: number) {
+    let key = indexNum.toString();
+    console.log(key);
+
+    const database = getDatabase();
+    remove(ref(database, "ShoppingOrderList/" + storeName + "/" + key))
+      .then(() => {
+        reorderList();
+      })
+      .catch((error) => {
+        console.log(category, " not deleted from ", storeName);
+      });
+  }
+
+  function checkForStore(storeName: String) {
+    for (let i = 0; i < props.pathArray.length; i++) {
+      if (
+        props.pathArray[i].storeName.toLocaleUpperCase() ===
+        storeName.toLocaleUpperCase()
+      ) {
+        return props.pathArray[i].path.length;
+      }
+    }
+
+    return 0;
+  }
+
+  function returnStoreIndex(storeName: String) {
+    for (let i = 0; i < props.pathArray.length; i++) {
+      if (
+        props.pathArray[i].storeName.toLocaleUpperCase() ===
+        storeName.toLocaleUpperCase()
+      ) {
+        console.log(
+          "CAT INDEX: ",
+          findCategory(i, props.pathArray[i].path.length)
+        );
+        return [
+          i,
+          findCategory(i, props.pathArray[i].path.length),
+          props.pathArray[i].path.length,
+        ];
+      }
+    }
+
+    return [0, 0, 0];
+  }
+
+  //! why is this working??
+  function findCategory(index: number, arrayLength: number) {
+    for (let i = 0; i < arrayLength; i++) {
+      console.log("CAT: ", props.pathArray[index].path[i]);
+      console.log("Looking for: ", category.toLocaleUpperCase());
+      if (props.pathArray[index].path[i] === category) {
+        return i;
+      }
+    }
+
+    return arrayLength + 1;
+  }
+
+  //todo
+  function reorderList() {
+    console.log("IN PROGRESS");
+  }
   return (
     <main className={styles.main}>
       <form action="" className={styles.form}>
@@ -135,10 +195,12 @@ export default function AddPathContainer(props: Props) {
               disabledBtn ? `${styles.disabledBtn}` : `${styles.button}`
             }
             disabled={disabledBtn}
-            onClick={(e) => writeUserData(e)}
+            onClick={(e) => {
+              methodAdd ? writeUserData(e) : removeUserData(e);
+            }}
             name="button"
           >
-            ADD
+            SUBMIT
           </button>
         </div>
       </form>

@@ -50,15 +50,14 @@
 }
 
 .button {
-  height: 6vh;
-  width: 6vh;
+  height: 7vh;
+  width: 7vh;
   border-radius: 50%;
   color: black;
   background-color: white;
   color: var(--secondary-background);
   border: 2px solid white;
   font-size: 1.5vh;
-  padding: 1vh;
 }
 
 .button:hover {
@@ -67,13 +66,12 @@
 }
 
 .disabledBtn {
-  height: 6vh;
-  width: 6vh;
+  height: 7vh;
+  width: 7vh;
   border-radius: 50%;
   background-color: lightgray;
   border: 2px solid var(--primary-font);
   font-size: 1.5vh;
-  padding: 1vh;
 }
 
 .hide {

@@ -26,9 +26,9 @@ export default function Store(props: Props) {
   const [hidden, setHidden] = useState(`${styles.hide}`);
   const [listArray, setListArray] = useState<Array<any>>(props.store.path);
 
-  useEffect(() => {
-    console.log("Store Props Path: ", props.store.path);
-  }, []);
+  // useEffect(() => {
+  //   console.log("Store Props Path: ", props.store.path);
+  // }, []);
 
   useEffect(() => {
     setListArray(props.store.path);
