@@ -66,7 +66,7 @@ export default function AddPathContainer(props: Props) {
       .then(() => {
         console.log(".then here");
         props.refresh(!props.refVal);
-        setStoreName("");
+        setCategory("");
       })
       .catch((error) => {
         console.log(error);

@@ -18,10 +18,9 @@ export default function Home() {
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<any>>([]);
   const [storePaths, setStorePaths] = useState<Array<StorePathObj>>([]);
 
-  useEffect(() => {
-    console.log("here");
-    getShoppingOrderLists();
-  }, [refresh]);
+  // useEffect(() => {
+  //   getShoppingOrderLists();
+  // }, [refresh]);
 
   useEffect(() => {
     setHeaderText("My Store Path");
@@ -30,7 +29,12 @@ export default function Home() {
   function handleRefresh(value: boolean) {
     console.log("REFERGGING");
     setRefresh(value);
+    getShoppingOrderLists();
   }
+
+  useEffect(() => {
+    getShoppingOrderLists();
+  }, []);
 
   useEffect(() => {
     console.log("storePaths", storePaths);
@@ -58,6 +62,8 @@ export default function Home() {
           console.log(obj);
           displayArray.push(obj);
         });
+        console.log("Display Array: ", displayArray);
+        console.log("Path Array: ", pathArray);
         setShoppingOrderArray(displayArray);
         setStorePaths(pathArray);
       },
