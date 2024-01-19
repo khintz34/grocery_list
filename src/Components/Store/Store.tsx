@@ -52,10 +52,6 @@ export default function Store(props: Props) {
     }
   }
 
-  useEffect(() => {
-    console.log(listArray);
-  }, [listArray]);
-
   return (
     <main
       className={`${styles.storeContainer}`}

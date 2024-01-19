@@ -19,6 +19,7 @@ export default function Home() {
   const [storePaths, setStorePaths] = useState<Array<StorePathObj>>([]);
 
   useEffect(() => {
+    console.log("here");
     getShoppingOrderLists();
   }, [refresh]);
 
@@ -27,6 +28,7 @@ export default function Home() {
   }, []);
 
   function handleRefresh(value: boolean) {
+    console.log("REFERGGING");
     setRefresh(value);
   }
 
@@ -49,11 +51,11 @@ export default function Home() {
             path: childData,
           };
           pathArray.push(pathObj);
-          console.log(childData);
           let obj = {
             store: childKey,
             path: childData,
           };
+          console.log(obj);
           displayArray.push(obj);
         });
         setShoppingOrderArray(displayArray);
