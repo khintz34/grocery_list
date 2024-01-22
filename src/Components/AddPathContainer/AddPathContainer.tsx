@@ -14,7 +14,7 @@ interface Props {
   pathArray: Array<StorePathObj>;
 }
 
-//todo refresh after adding a new category to a list
+//todo set List in parent via passed prop after reorder
 
 export default function AddPathContainer(props: Props) {
   const [storeName, setStoreName] = useState<string>("");
@@ -49,36 +49,11 @@ export default function AddPathContainer(props: Props) {
     obj[key] = category;
     set(ref(db, "ShoppingOrderList/" + storeName + "/" + key), category)
       .then(() => {
-        console.log(".then here");
         props.refresh(!props.refVal);
         setCategory("");
       })
       .catch((error) => {
         console.log(error);
-      });
-  }
-
-  function removeUserData(e: any) {
-    e.preventDefault();
-    let found: Array<number> = returnStoreIndex(storeName);
-    console.log(found);
-
-    if (found[0] > 0) {
-      if (found[1] < found[2]) removeCategoryFromList(found[1]);
-    }
-  }
-
-  function removeCategoryFromList(indexNum: number) {
-    let key = indexNum.toString();
-    console.log(key);
-
-    const database = getDatabase();
-    remove(ref(database, "ShoppingOrderList/" + storeName + "/" + key))
-      .then(() => {
-        reorderList();
-      })
-      .catch((error) => {
-        console.log(category, " not deleted from ", storeName);
       });
   }
 
@@ -95,16 +70,38 @@ export default function AddPathContainer(props: Props) {
     return 0;
   }
 
+  function removeUserData(e: any) {
+    e.preventDefault();
+    let found: Array<number> = returnStoreIndex(storeName);
+
+    if (found[0] > 0) {
+      if (found[1] < found[2]) removeCategoryFromList(found);
+    }
+  }
+
+  async function removeCategoryFromList(found: Array<number>) {
+    let key = found[1].toString();
+    let newArray = reorderList(found);
+
+    console.log(reorderList(found));
+
+    const database = getDatabase();
+    remove(ref(database, "ShoppingOrderList/" + storeName + "/" + key))
+      .then(() => {
+        reorderList(found);
+        props.refresh(!props.refVal);
+      })
+      .catch((error) => {
+        console.log(category, " not deleted from ", storeName);
+      });
+  }
+
   function returnStoreIndex(storeName: String) {
     for (let i = 0; i < props.pathArray.length; i++) {
       if (
         props.pathArray[i].storeName.toLocaleUpperCase() ===
         storeName.toLocaleUpperCase()
       ) {
-        console.log(
-          "CAT INDEX: ",
-          findCategory(i, props.pathArray[i].path.length)
-        );
         return [
           i,
           findCategory(i, props.pathArray[i].path.length),
@@ -115,13 +112,9 @@ export default function AddPathContainer(props: Props) {
 
     return [0, 0, 0];
   }
-
-  //! why is this working??
   function findCategory(index: number, arrayLength: number) {
     for (let i = 0; i < arrayLength; i++) {
-      console.log("CAT: ", props.pathArray[index].path[i]);
-      console.log("Looking for: ", category.toLocaleUpperCase());
-      if (props.pathArray[index].path[i] === category) {
+      if (props.pathArray[index].path[i] === category.toLocaleUpperCase()) {
         return i;
       }
     }
@@ -130,8 +123,24 @@ export default function AddPathContainer(props: Props) {
   }
 
   //todo
-  function reorderList() {
-    console.log("IN PROGRESS");
+  function reorderList(found: Array<number>) {
+    let storeIndex = found[0];
+    let categoryIndex = found[1];
+    let newArray: Array<CategoryObjext> = [];
+
+    let filterArray = [...props.pathArray[storeIndex].path]
+      .splice(categoryIndex, 1)
+      .filter((element) => {
+        return element != null;
+      });
+
+    for (let i = 0; i < filterArray.length; i++) {
+      let obj = {} as CategoryObjext;
+      let key = i;
+      obj[key] = filterArray[i].toString();
+      newArray.push(obj);
+    }
+    return newArray;
   }
   return (
     <main className={styles.main}>

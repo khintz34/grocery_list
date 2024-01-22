@@ -27,7 +27,6 @@ export default function Home() {
   }, []);
 
   function handleRefresh(value: boolean) {
-    console.log("REFERGGING");
     setRefresh(value);
     getShoppingOrderLists();
   }
@@ -35,10 +34,6 @@ export default function Home() {
   useEffect(() => {
     getShoppingOrderLists();
   }, []);
-
-  useEffect(() => {
-    console.log("storePaths", storePaths);
-  }, [storePaths]);
 
   async function getShoppingOrderLists() {
     const Ref = databaseRef(db, `ShoppingOrderList/`);
@@ -59,11 +54,8 @@ export default function Home() {
             store: childKey,
             path: childData,
           };
-          console.log(obj);
           displayArray.push(obj);
         });
-        // console.log("Display Array: ", displayArray);
-        // console.log("Path Array: ", pathArray);
         setShoppingOrderArray(displayArray);
         setStorePaths(pathArray);
       },
