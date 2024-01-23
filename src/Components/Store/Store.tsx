@@ -21,15 +21,12 @@ interface Props {
   index: number;
 }
 
-//todo create save btn that uploads to firebase afetr move
-
 export default function Store(props: Props) {
   const [down, setDown] = useState(true);
   const [hidden, setHidden] = useState(`${styles.hide}`);
   const [listArray, setListArray] = useState<Array<any>>(props.store.path);
 
   useEffect(() => {
-    console.log("settingListArray");
     setListArray(props.store.path);
   }, [props.store.path]);
 
@@ -44,16 +41,12 @@ export default function Store(props: Props) {
   }
 
   function handleDragEnd(event: any) {
-    console.log("Drag End Called");
     const { active, over } = event;
-    console.log("Active: ", active.id);
-    console.log("Over: ", over.id);
 
     if (active.id !== over.id) {
       setListArray((items) => {
         const activeIndex = items.indexOf(active.id);
         const overIndex = items.indexOf(over.id);
-        console.log(arrayMove(items, activeIndex, overIndex));
         updateStoreOrder(arrayMove(items, activeIndex, overIndex));
         return arrayMove(items, activeIndex, overIndex);
       });

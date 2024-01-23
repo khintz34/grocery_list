@@ -9,6 +9,8 @@ import { HeaderContext } from "@/contexts/authContext";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import MyListItem from "@/Components/MyListItem/MyListItem";
 
+// todo make currentStore a dropdown and then refresh onChange with new path
+
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const { headerText, setHeaderText } = useContext(HeaderContext);
@@ -17,15 +19,38 @@ export default function Home() {
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<string>>(
     []
   );
+  const [stores, setStores] = useState<Array<string>>([]);
+  const [currentStore, setCurrentStore] = useState<string>(stores[0]);
+
+  useEffect(() => {
+    getStoreList();
+    setHeaderText("My Grocery List");
+  }, [setHeaderText]);
+
+  async function getStoreList() {
+    const Ref = databaseRef(db, `ShoppingOrderList/`);
+    let storeArray: Array<string> = [];
+    onValue(
+      Ref,
+      (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const childKey = childSnapShot.key;
+          storeArray.push(childKey);
+        });
+        console.log("storeArray", storeArray);
+        setStores(storeArray);
+        setCurrentStore(storeArray[0]);
+      },
+      {
+        onlyOnce: false,
+      }
+    );
+  }
 
   useEffect(() => {
     setFoodList([]);
     getUserData();
   }, [refresh]);
-
-  useEffect(() => {
-    setHeaderText("My Grocery List");
-  }, []);
 
   function handleRefresh(value: boolean) {
     setRefresh(value);
@@ -95,6 +120,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      <div>CURRENT STORE: {currentStore}</div>
       <div className={styles.listContainer}>
         {foodList?.map((val, index) => {
           if (index === 0) {
