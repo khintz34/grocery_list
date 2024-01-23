@@ -30,3 +30,10 @@
   background-color: var(--secondary-background);
   margin-bottom: 0.7vh;
 }
+
+.currentStoreDiv {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  justify-content: center;
+}

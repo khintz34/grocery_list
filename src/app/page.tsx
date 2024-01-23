@@ -8,6 +8,7 @@ import { FoodListObj } from "@/assets/FoodList";
 import { HeaderContext } from "@/contexts/authContext";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import MyListItem from "@/Components/MyListItem/MyListItem";
+import { StoreDropdown } from "@/Components/StoreDropdown/StoreDropdown";
 
 // todo make currentStore a dropdown and then refresh onChange with new path
 
@@ -118,9 +119,23 @@ export default function Home() {
     }
   }
 
+  function changeCurrentStore(value: string) {
+    setCurrentStore(value);
+  }
+
+  useEffect(() => {
+    console.log(currentStore);
+  }, [currentStore]);
+
   return (
     <main className={styles.main}>
-      <div>CURRENT STORE: {currentStore}</div>
+      <div className={styles.currentStoreDiv}>
+        CURRENT STORE:
+        <StoreDropdown
+          storeArray={stores}
+          changeCurrentStore={changeCurrentStore}
+        />
+      </div>
       <div className={styles.listContainer}>
         {foodList?.map((val, index) => {
           if (index === 0) {
