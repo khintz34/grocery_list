@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { CategoryList } from "../CategoryList";
 import styles from "./Dropdown.module.scss";
-import { getDatabase, push, ref, set, remove } from "firebase/database";
+import { getDatabase, ref, set, remove } from "firebase/database";
 import { BsPlusCircle, BsTrash } from "react-icons/bs";
 import { IconContext } from "react-icons";
 
 function Dropdown({ firstOpt, name, add, list, removeItem }) {
   const [category, setCategory] = useState(firstOpt);
+  const [shoppingOrderArray, setShoppingOrderArray] = useState([]);
+  const [shoppingOrder, setShoppingOrder] = useState("Default");
 
   function writeUserData(e) {
     e.preventDefault();

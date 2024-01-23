@@ -16,9 +16,6 @@ export default function Home() {
   const [refresh, setRefresh] = useState<boolean>(false);
   const { headerText, setHeaderText } = useContext(HeaderContext);
 
-  // todo add AddFoodContainer
-  //todo pass in fxn to add to MyList as well
-
   useEffect(() => {
     setFoodList([]);
     getUserData();
@@ -58,12 +55,10 @@ export default function Home() {
   }
 
   function handleState(value: Array<FoodListObj>) {
-    console.log("state: myFods");
     setFoodList([...value]);
   }
 
   function handleRefresh(value: boolean) {
-    console.log("refreshing myFoods");
     setRefresh(value);
   }
 

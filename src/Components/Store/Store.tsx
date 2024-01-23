@@ -19,7 +19,7 @@ interface Props {
   index: number;
 }
 
-//todo create save btn that uploads to firebase
+//todo create save btn that uploads to firebase afetr move
 
 export default function Store(props: Props) {
   const [down, setDown] = useState(true);
