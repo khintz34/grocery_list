@@ -18,10 +18,6 @@ export default function Home() {
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<any>>([]);
   const [storePaths, setStorePaths] = useState<Array<StorePathObj>>([]);
 
-  // useEffect(() => {
-  //   getShoppingOrderLists();
-  // }, [refresh]);
-
   useEffect(() => {
     setHeaderText("My Store Path");
   }, []);
@@ -70,6 +66,7 @@ export default function Home() {
       My Store Paths:
       <div className={styles.paths}>
         {shoppingOrderArray.map((store, index) => {
+          console.log(store);
           return (
             <Store
               store={store}

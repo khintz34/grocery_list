@@ -10,6 +10,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { SortablePath } from "../SortablePath/SortablePath";
+import { ref, set } from "firebase/database";
+import { db } from "@/assets/firebase";
 
 interface Props {
   store: {
@@ -26,11 +28,8 @@ export default function Store(props: Props) {
   const [hidden, setHidden] = useState(`${styles.hide}`);
   const [listArray, setListArray] = useState<Array<any>>(props.store.path);
 
-  // useEffect(() => {
-  //   console.log("Store Props Path: ", props.store.path);
-  // }, []);
-
   useEffect(() => {
+    console.log("settingListArray");
     setListArray(props.store.path);
   }, [props.store.path]);
 
@@ -55,9 +54,18 @@ export default function Store(props: Props) {
         const activeIndex = items.indexOf(active.id);
         const overIndex = items.indexOf(over.id);
         console.log(arrayMove(items, activeIndex, overIndex));
+        updateStoreOrder(arrayMove(items, activeIndex, overIndex));
         return arrayMove(items, activeIndex, overIndex);
       });
     }
+  }
+
+  function updateStoreOrder(list: Array<string>) {
+    set(ref(db, "ShoppingOrderList/" + props.store.store + "/"), list).catch(
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   return (
