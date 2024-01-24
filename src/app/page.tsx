@@ -10,18 +10,16 @@ import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import MyListItem from "@/Components/MyListItem/MyListItem";
 import { StoreDropdown } from "@/Components/StoreDropdown/StoreDropdown";
 
-// todo make currentStore a dropdown and then refresh onChange with new path
-
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [refresh, setRefresh] = useState<boolean>(false);
-  const [shoppingOrder, setShoppingOrder] = useState<string>("Default");
+  const [shoppingOrder, setShoppingOrder] = useState<string>("ALDI");
   const [shoppingOrderArray, setShoppingOrderArray] = useState<Array<string>>(
     []
   );
   const [stores, setStores] = useState<Array<string>>([]);
-  const [currentStore, setCurrentStore] = useState<string>(stores[0]);
+  const [currentStore, setCurrentStore] = useState<string>("ALDI");
 
   useEffect(() => {
     getStoreList();
@@ -38,7 +36,6 @@ export default function Home() {
           const childKey = childSnapShot.key;
           storeArray.push(childKey);
         });
-        console.log("storeArray", storeArray);
         setStores(storeArray);
         setCurrentStore(storeArray[0]);
       },
@@ -50,7 +47,7 @@ export default function Home() {
 
   useEffect(() => {
     setFoodList([]);
-    getUserData();
+    getUserData(currentStore);
   }, [refresh]);
 
   function handleRefresh(value: boolean) {
@@ -61,8 +58,8 @@ export default function Home() {
     setFoodList([...value]);
   }
 
-  async function getUserData() {
-    getShoppingOrderList();
+  async function getUserData(passedStore: String) {
+    let shoppingOrderListTemp = getShoppingOrderList(passedStore);
     const boardRef = databaseRef(db, "MyList/");
     let displayArray: Array<any> = [];
     onValue(
@@ -78,7 +75,7 @@ export default function Home() {
           };
           addData(obj);
         });
-        sortFoodList(displayArray);
+        sortFoodList(displayArray, shoppingOrderListTemp);
       },
       {
         onlyOnce: false,
@@ -90,42 +87,39 @@ export default function Home() {
       setFoodList([...displayArray]);
     }
 
-    function sortFoodList(list: Array<FoodListObj>) {
+    function sortFoodList(list: Array<FoodListObj>, catList: Array<string>) {
       list.sort(
-        (a, b) =>
-          shoppingOrderArray.indexOf(a.category) -
-          shoppingOrderArray.indexOf(b.category)
+        (a, b) => catList.indexOf(a.category) - catList.indexOf(b.category)
       );
       setFoodList(list);
     }
+  }
 
-    async function getShoppingOrderList() {
-      const Ref = databaseRef(db, `ShoppingOrderList/${shoppingOrder}`);
-      let displayArray: Array<string> = [];
-      onValue(
-        Ref,
-        (snapshot) => {
-          snapshot.forEach((childSnapShot) => {
-            const childKey = childSnapShot.key;
-            const childData = childSnapShot.val();
-            displayArray.push(childData);
-          });
-          setShoppingOrderArray(displayArray);
-        },
-        {
-          onlyOnce: false,
-        }
-      );
-    }
+  function getShoppingOrderList(passedStore: String) {
+    const Ref = databaseRef(db, `ShoppingOrderList/${passedStore}`);
+    let displayArray: Array<string> = [];
+    onValue(
+      Ref,
+      (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const childKey = childSnapShot.key;
+          const childData = childSnapShot.val();
+          displayArray.push(childData);
+        });
+        setShoppingOrderArray(displayArray);
+      },
+      {
+        onlyOnce: false,
+      }
+    );
+    return displayArray;
   }
 
   function changeCurrentStore(value: string) {
     setCurrentStore(value);
+    setShoppingOrder(value);
+    getUserData(value);
   }
-
-  useEffect(() => {
-    console.log(currentStore);
-  }, [currentStore]);
 
   return (
     <main className={styles.main}>

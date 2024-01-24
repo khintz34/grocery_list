@@ -13,8 +13,6 @@ interface Props {
   pathArray: Array<StorePathObj>;
 }
 
-//todo set List in parent via passed prop after reorder
-
 export default function AddPathContainer(props: Props) {
   const [storeName, setStoreName] = useState<string>("");
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
