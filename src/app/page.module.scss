@@ -3,10 +3,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 10.5vh 0;
+  padding: 10.5vh 0 0 0;
   background-color: var(--primary-background);
   gap: 1.5vh;
-  overflow: hidden;
+  overflow-y: hidden;
 }
 
 .listContainer {
@@ -20,6 +20,8 @@
 
   @media screen and (max-width: 1000px) {
     width: 100vw;
+    max-height: 72vh;
+    padding-bottom: 2vh;
   }
 }
 
