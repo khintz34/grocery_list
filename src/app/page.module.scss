@@ -18,10 +18,10 @@
   max-height: 71vh;
   overflow-y: scroll;
 
-  @media screen and (max-width: 1000px) {
+  @media (max-width: 1000px) {
     width: 100vw;
-    max-height: 72vh;
-    padding-bottom: 2vh;
+    padding-bottom: 5vh;
+    margin-bottom: 5vh;
   }
 }
 
