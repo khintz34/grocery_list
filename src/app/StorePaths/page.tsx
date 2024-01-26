@@ -1,12 +1,10 @@
 "use client";
 
 import styles from "./page.module.css";
-import { child, ref as databaseRef, onValue } from "firebase/database";
+import { ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../../assets/firebase";
 import { useState, useEffect, useContext } from "react";
 import { HeaderContext } from "@/contexts/authContext";
-import { isIndexSignatureDeclaration } from "typescript";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import Store from "@/Components/Store/Store";
 import AddPathContainer from "@/Components/AddPathContainer/AddPathContainer";
 import { StorePathObj } from "@/assets/StorePathObj";

@@ -20,9 +20,6 @@ export default function AddFoodContainer(props: Props) {
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
   const [foodNote, setFoodNote] = useState<string>("");
 
-  // todo when adding, just add to foodList by pushing a new obj
-  //todo list shouldnt overlap add container
-
   useEffect(() => {
     if (foodName === undefined || foodName === "") {
       setDisabledBtn(true);

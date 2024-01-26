@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import styles from "./AddPathContainer.module.scss";
 import { CategoryList } from "@/assets/CategoryList";
 import { db } from "../../assets/firebase";
-import { getDatabase, push, ref, set, remove } from "firebase/database";
-import { FoodListObj } from "@/assets/FoodList";
+import { getDatabase, ref, set, remove } from "firebase/database";
 import { StorePathObj } from "@/assets/StorePathObj";
 
 interface Props {
