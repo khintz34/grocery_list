@@ -16,7 +16,7 @@
   align-items: center;
   gap: 1.2vh;
   max-height: 71vh;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .foodItemContainer {
@@ -35,4 +35,5 @@
   flex-direction: row;
   gap: 24px;
   justify-content: center;
+  position: sticky;
 }

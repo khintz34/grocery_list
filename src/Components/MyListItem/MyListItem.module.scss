@@ -16,6 +16,10 @@
   border-bottom: 2px dashed var(--primary-font);
   width: 20vw;
   border-radius: 0;
+
+  @media screen and (max-width: 1000px) {
+    font-size: 16px;
+  }
 }
 
 .hide {
