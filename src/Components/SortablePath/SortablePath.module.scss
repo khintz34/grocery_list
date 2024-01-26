@@ -16,11 +16,15 @@
   cursor: grab;
   .section {
     color: var(--secondary-background);
-    transform: scale(1.2);
+    @media screen and (min-width: 1000px) {
+      transform: scale(1.2);
+    }
   }
   .scale {
     fill: var(--secondary-background);
-    transform: scale(1.2);
+    @media screen and (min-width: 1000px) {
+      transform: scale(1.2);
+    }
   }
 }
 
