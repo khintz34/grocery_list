@@ -36,4 +36,10 @@
   gap: 24px;
   justify-content: center;
   position: sticky;
+  top: 0;
+}
+
+.main::-webkit-scrollbar,
+.listContainer::-webkit-scrollbar {
+  display: none;
 }
