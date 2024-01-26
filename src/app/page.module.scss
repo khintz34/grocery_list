@@ -17,6 +17,10 @@
   gap: 1.2vh;
   max-height: 71vh;
   overflow-y: scroll;
+
+  @media screen and (max-width: 1000px) {
+    width: 100vw;
+  }
 }
 
 .foodItemContainer {
