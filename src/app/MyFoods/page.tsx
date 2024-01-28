@@ -11,8 +11,6 @@ import { HeaderContext } from "@/contexts/authContext";
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>([]);
-  const [selectedValue, setSelectedValue] = useState<string>("");
-  const [counter, setCounter] = useState<number>(0);
   const [refresh, setRefresh] = useState<boolean>(false);
   const { headerText, setHeaderText } = useContext(HeaderContext);
 
@@ -67,11 +65,7 @@ export default function Home() {
       <div className={styles.listContainer}>
         {foodList?.map((val, index) => {
           return (
-            <div
-              key={`${val}-${index}`}
-              className={styles.foodContainer}
-              onChange={() => console.log("changed")}
-            >
+            <div key={`${val}-${index}`} className={styles.foodContainer}>
               <div className={styles.foodName}>{val.name}</div>
               <Dropdown
                 firstOpt={val.category}
@@ -88,7 +82,7 @@ export default function Home() {
         refresh={handleRefresh}
         refVal={refresh}
         path={false}
-        reset={() => console.log("reset")}
+        reset={handleState}
         foodlistProp={[]}
       />
     </main>

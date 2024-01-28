@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CategoryList } from "../CategoryList";
 import styles from "./Dropdown.module.scss";
 import { getDatabase, ref, set, remove } from "firebase/database";
@@ -7,8 +7,6 @@ import { IconContext } from "react-icons";
 
 function Dropdown({ firstOpt, name, add, list, removeItem }) {
   const [category, setCategory] = useState(firstOpt);
-  const [shoppingOrderArray, setShoppingOrderArray] = useState([]);
-  const [shoppingOrder, setShoppingOrder] = useState("Default");
 
   function writeUserData(e) {
     e.preventDefault();
@@ -22,7 +20,7 @@ function Dropdown({ firstOpt, name, add, list, removeItem }) {
     });
   }
 
-  function addDataToMyList() {
+  function addDataToMyList(e) {
     const database = getDatabase();
     set(ref(database, "MyList/" + name), {
       Name: name,

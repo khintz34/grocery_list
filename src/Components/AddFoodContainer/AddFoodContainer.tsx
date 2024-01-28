@@ -47,6 +47,9 @@ export default function AddFoodContainer(props: Props) {
         props.refresh(!props.refVal);
         setFoodName("");
       })
+      .then(() => {
+        updateFoodList();
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -65,14 +68,7 @@ export default function AddFoodContainer(props: Props) {
         });
       })
       .then(() => {
-        let newList: Array<FoodListObj> =
-          props.foodlistProp === undefined ? [] : [...props.foodlistProp];
-        let item = {} as FoodListObj;
-        item.name = foodName;
-        item.category = category;
-        item.note = foodNote;
-        newList.push(item);
-        props.reset(newList);
+        updateFoodList();
       })
       .then(() => {
         setFoodName("");
@@ -82,6 +78,17 @@ export default function AddFoodContainer(props: Props) {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  function updateFoodList() {
+    let newList: Array<FoodListObj> =
+      props.foodlistProp === undefined ? [] : [...props.foodlistProp];
+    let item = {} as FoodListObj;
+    item.name = foodName;
+    item.category = category;
+    item.note = foodNote;
+    newList.push(item);
+    props.reset(newList);
   }
 
   return (
