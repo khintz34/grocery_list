@@ -4,11 +4,12 @@ import styles from "./MenuItem.module.scss";
 type Props = {
   closeMenu: Function;
   name: String;
+  linkName: String;
 };
 
-export function MenuItem({ closeMenu, name }: Props) {
+export function MenuItem({ closeMenu, name, linkName }: Props) {
   return (
-    <Link href={"/"} className={styles.link} as="/">
+    <Link href={`/${linkName}`} className={styles.link} as={`/${linkName}`}>
       <li
         className={styles.menuItem}
         onClick={() => {

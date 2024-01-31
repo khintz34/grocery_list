@@ -7,10 +7,10 @@ import {
   useReducer,
   useState,
 } from "react";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import Header from "../Components/Header/Header";
 
-const inter = Inter({ subsets: ["latin"] });
+const poppins = Poppins({ weight: ["100", "400", "800"], subsets: ["latin"] });
 
 interface IAuthContext {
   auth: Boolean;
@@ -42,7 +42,7 @@ export const AuthContextProvider = ({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={poppins.className}>
         <AuthContext.Provider value={{ auth, setAuth }}>
           <HeaderContext.Provider value={{ headerText, setHeaderText }}>
             <Header />

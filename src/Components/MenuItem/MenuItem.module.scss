@@ -1,14 +1,23 @@
+.link {
+  font-style: italic;
+  text-decoration: none;
+}
+
 .menuItem {
-  font-size: 20px;
-  width: 30vw;
+  font-size: 2.2vh;
+  padding-bottom: 2vh;
+  border: 3px solid var(--secondary-background);
+  width: 70vw;
+  max-width: 300px;
   border-radius: 25px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 15px;
-  color: var(--primary-font);
-  background-color: var(--h2-font);
+  padding: 2vh;
+  color: white;
+  background-color: #999;
   font-weight: 400;
+  text-decoration: none;
 
   @media (max-width: 1023px) {
     width: 70vw;
@@ -16,12 +25,7 @@
 }
 
 .menuItem:hover {
-  background-color: var(--background-main);
-  color: var(--black-font);
+  background-color: #0d1321;
+  color: white;
   transform: scale(1.1);
-}
-
-.link {
-  font-style: italic;
-  text-decoration: none;
 }
