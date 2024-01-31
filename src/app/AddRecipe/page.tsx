@@ -9,8 +9,6 @@ import RecipeItemAdd from "@/Components/RecipeItemAdd/RecipeItemAdd";
 import { InitialIngredientList } from "@/assets/InitialIngredientList";
 
 export default function AddRecipe() {
-  //! todo fix this.
-  //! needs a copy of init array that is blank
   const copyInitArray = JSON.parse(JSON.stringify(InitialIngredientList));
   function createCopy() {
     return JSON.parse(JSON.stringify(InitialIngredientList));

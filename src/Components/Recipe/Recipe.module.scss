@@ -45,9 +45,21 @@
 
 .btn {
   color: black;
-  padding: 0 0.7vh;
+  padding: 0.3vh 0.8vh;
   border-radius: 20px;
   border: 1px solid var(--secondary-background);
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: black;
+  color: white;
+}
+
+.btn:active {
+  color: white;
+  background-color: var(--primary-background);
+  transform: scale(1.1);
 }
 
 .delete {

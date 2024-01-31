@@ -7,6 +7,7 @@ import { db } from "../../assets/firebase";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
 import { BsPlusCircle, BsTrash } from "react-icons/bs";
+import { IconContext } from "react-icons";
 
 interface Props {
   foodItem: FoodListObj;
@@ -31,7 +32,9 @@ export default function RecipeItem(props: Props) {
           <p className={styles.pNote}>{props.foodItem.note}</p>
         )}
       </div>
-      <BsPlusCircle onClick={addToMyList} />
+      <IconContext.Provider value={{ className: "circle" }}>
+        <BsPlusCircle onClick={addToMyList} className={styles.circle} />
+      </IconContext.Provider>
     </main>
   );
 }
