@@ -25,6 +25,7 @@ const Header = () => {
     changeStatus(false);
   };
 
+  //todo clean up this list like in sams comps
   return (
     <div className={`${styles.header}`}>
       <h1 className={styles.headerSize}>
