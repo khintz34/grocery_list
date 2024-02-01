@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "./AddFoodContaner.module.scss";
 import { CategoryList } from "@/assets/CategoryList";
-import { storage, db } from "../../assets/firebase";
-import { getDatabase, push, ref, set } from "firebase/database";
-import { debug } from "console";
+import { db } from "../../assets/firebase";
+import { ref, set } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 interface Props {
   refresh: Function;
@@ -19,6 +19,18 @@ export default function AddFoodContainer(props: Props) {
   const [category, setCategory] = useState<string>(CategoryList[0]);
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
   const [foodNote, setFoodNote] = useState<string>("");
+  const [down, setDown] = useState(true);
+  const [containerHeight, setContainerHeight] = useState(`${styles.short}`);
+
+  function handleToggle() {
+    if (down) {
+      setDown(false);
+      setContainerHeight(`${styles.short}`);
+    } else {
+      setDown(true);
+      setContainerHeight(`${styles.tall}`);
+    }
+  }
 
   useEffect(() => {
     if (foodName === undefined || foodName === "") {
@@ -92,7 +104,13 @@ export default function AddFoodContainer(props: Props) {
   }
 
   return (
-    <main className={styles.main}>
+    <main className={`${styles.main} ${containerHeight}`}>
+      <div className={styles.dropContainer}>
+        <h2>Add More Items</h2>
+        <div onClick={handleToggle}>
+          {down ? <FaCaretDown /> : <FaCaretUp />}
+        </div>
+      </div>
       <form action="" className={styles.form}>
         <div className={styles.formInputs}>
           <div className={styles.inputContainer}>
@@ -132,24 +150,22 @@ export default function AddFoodContainer(props: Props) {
               ))}
             </select>
           </div>
-          {props.path ? (
-            <div className={styles.inputContainer}>
-              <label htmlFor="foodNote" className={styles.label}>
-                Note
-              </label>
-              <input
-                type="text"
-                placeholder="Note (amount/count/etc)"
-                className={styles.input}
-                onChange={(e) => setFoodNote(e.target.value)}
-                value={foodNote}
-                maxLength={30}
-                id="foodNote"
-              />
-            </div>
-          ) : (
-            <div className={styles.hide}></div>
-          )}
+          <div
+            className={`${props.path ? styles.inputContainer : styles.hide}`}
+          >
+            <label htmlFor="foodNote" className={styles.label}>
+              Note
+            </label>
+            <input
+              type="text"
+              placeholder="Note (amount/count/etc)"
+              className={styles.input}
+              onChange={(e) => setFoodNote(e.target.value)}
+              value={foodNote}
+              maxLength={30}
+              id="foodNote"
+            />
+          </div>
         </div>
         <div>
           <button

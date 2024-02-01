@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "./Recipe.module.scss";
-import { FaCaretDown, FaCaretUp, FaTrash } from "react-icons/fa";
+import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { FoodListObj } from "@/assets/FoodList";
 import RecipeItem from "../RecipeItem/RecipeItem";
 import { db } from "../../assets/firebase";
-import { getDatabase, push, ref, set, remove } from "firebase/database";
+import { getDatabase, ref, set, remove } from "firebase/database";
 import { IconContext } from "react-icons";
 import { BsTrash } from "react-icons/bs";
 import { RecipeObj } from "@/assets/RecipeObj";

@@ -30,7 +30,6 @@ const Header = () => {
     <div className={`${styles.header}`}>
       <h1 className={styles.headerSize}>
         <Link href={"/"} className={styles.a}>
-          {/* eslint-disable-next-line react/no-unescaped-entities */}
           {headerText}
         </Link>
       </h1>

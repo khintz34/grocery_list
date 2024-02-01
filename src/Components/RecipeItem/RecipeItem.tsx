@@ -1,12 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./RecipeItem.module.scss";
-import { BsCheckCircle } from "react-icons/bs";
-import { TfiWrite } from "react-icons/tfi";
 import { db } from "../../assets/firebase";
-import { getDatabase, push, ref, set, remove } from "firebase/database";
+import { ref, set } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
-import { BsPlusCircle, BsTrash } from "react-icons/bs";
+import { BsPlusCircle } from "react-icons/bs";
 import { IconContext } from "react-icons";
 
 interface Props {
