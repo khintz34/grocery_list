@@ -19,7 +19,7 @@ export default function AddFoodContainer(props: Props) {
   const [category, setCategory] = useState<string>(CategoryList[0]);
   const [disabledBtn, setDisabledBtn] = useState<boolean>(true);
   const [foodNote, setFoodNote] = useState<string>("");
-  const [down, setDown] = useState(true);
+  const [down, setDown] = useState(false);
   const [containerHeight, setContainerHeight] = useState(`${styles.short}`);
 
   function handleToggle() {
@@ -106,7 +106,7 @@ export default function AddFoodContainer(props: Props) {
   return (
     <main className={`${styles.main} ${containerHeight}`}>
       <div className={styles.dropContainer}>
-        <h2>Add More Items</h2>
+        <h2 className={styles.h2Add}>Add More Items</h2>
         <div onClick={handleToggle}>
           {down ? <FaCaretDown /> : <FaCaretUp />}
         </div>
