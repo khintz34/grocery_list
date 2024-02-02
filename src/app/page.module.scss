@@ -14,13 +14,13 @@
   justify-content: flex-start;
   align-items: center;
   gap: 1.2vh;
-  height: 78vh;
+  // height: 78vh;
   overflow-y: scroll;
-  padding-bottom: 2vh;
+  padding-bottom: 5vh;
 
   @media (max-width: 1000px) {
     width: 100vw;
-    padding-bottom: 10vh;
+    padding-bottom: 15vh;
   }
 }
 
@@ -42,8 +42,8 @@
   flex-direction: row;
   gap: 24px;
   justify-content: center;
-  position: sticky;
-  top: 0;
+  // position: sticky;
+  // top: 0;
   color: var(--secondary-background);
   border-bottom: 2px solid var(--primary-font);
   font-style: italic;
