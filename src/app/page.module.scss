@@ -33,6 +33,7 @@
   text-align: center;
   background-color: var(--secondary-background);
   margin-bottom: 0.7vh;
+  width: 100vw;
 }
 
 .currentStoreDiv {
@@ -46,9 +47,14 @@
   color: var(--secondary-background);
   border-bottom: 2px solid var(--primary-font);
   font-style: italic;
+  padding: 1vh 0vh;
 }
 
 .main::-webkit-scrollbar,
 .listContainer::-webkit-scrollbar {
   display: none;
+}
+
+.marginLeft10 {
+  margin-left: 5vw;
 }
