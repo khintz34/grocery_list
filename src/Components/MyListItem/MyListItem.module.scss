@@ -3,6 +3,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-height: 5vh;
+  border: 1px solid lightgray;
+  padding: 2px 12px;
+  border-radius: 10px;
 }
 
 .pName {
