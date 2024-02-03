@@ -17,7 +17,7 @@ export default function Home() {
   const [storePaths, setStorePaths] = useState<Array<StorePathObj>>([]);
 
   useEffect(() => {
-    setHeaderText("My Store Path");
+    setHeaderText("My Store Paths");
   }, []);
 
   function handleRefresh(value: boolean) {
@@ -61,7 +61,6 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      My Store Paths:
       <div className={styles.paths}>
         {shoppingOrderArray.map((store, index) => {
           console.log(store);

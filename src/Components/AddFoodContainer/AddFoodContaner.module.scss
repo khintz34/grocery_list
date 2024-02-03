@@ -97,6 +97,16 @@
   height: 8vh;
 }
 
+.caretContainer {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--primary-background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .tall {
   height: 25vh;
   border-radius: 20px 20px 0 0;

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import styles from "./page.module.scss";
 import { CategoryList } from "../../assets/CategoryList";
 import { getDatabase, push, ref, set, remove } from "firebase/database";
@@ -7,6 +7,7 @@ import { db } from "../../assets/firebase";
 import { FoodListObj } from "@/assets/FoodList";
 import RecipeItemAdd from "@/Components/RecipeItemAdd/RecipeItemAdd";
 import { InitialIngredientList } from "@/assets/InitialIngredientList";
+import { HeaderContext } from "@/contexts/authContext";
 
 export default function AddRecipe() {
   const copyInitArray = JSON.parse(JSON.stringify(InitialIngredientList));
@@ -19,6 +20,7 @@ export default function AddRecipe() {
   const [recipeName, setRecipeName] = useState<string>("");
   const refer = useRef<any>();
   const [addedEls, SetAddedEls] = useState<number>(0);
+  const { headerText, setHeaderText } = useContext(HeaderContext);
 
   function writeUserData(e: React.ChangeEvent<any>) {
     e.preventDefault();
@@ -79,6 +81,10 @@ export default function AddRecipe() {
 
     setIngredientList(newArray);
   }
+
+  useEffect(() => {
+    setHeaderText("Add Recipe");
+  }, [setHeaderText]);
 
   return (
     <main className={styles.main}>

@@ -23,7 +23,7 @@ export default function Home() {
 
   useEffect(() => {
     getStoreList();
-    setHeaderText("My Grocery List");
+    setHeaderText("Grocery Mate");
   }, [setHeaderText]);
 
   async function getStoreList() {
@@ -130,62 +130,60 @@ export default function Home() {
           changeCurrentStore={changeCurrentStore}
         />
       </div>
-      <div className={styles.listContainer}>
-        {foodList?.map((val, index) => {
-          if (index === 0) {
-            return (
-              <div key={`zero-${index}-${val.name}`}>
-                <div className={styles.catDisplay}>{val.category}</div>
-                <div
-                  className={`${styles.foodItemContainer} ${styles.marginLeft10}`}
-                >
-                  <MyListItem
-                    key={`${val.name}-${index}`}
-                    name={val.name}
-                    category={val.category}
-                    list={foodList}
-                    removeItem={handleState}
-                    note={val.note}
-                    refresh={handleRefresh}
-                    refVal={refresh}
-                  />
-                </div>
+      {foodList?.map((val, index) => {
+        if (index === 0) {
+          return (
+            <div key={`zero-${index}-${val.name}`}>
+              <div className={styles.catDisplay}>{val.category}</div>
+              <div
+                className={`${styles.foodItemContainer} ${styles.marginLeft10}`}
+              >
+                <MyListItem
+                  key={`${val.name}-${index}`}
+                  name={val.name}
+                  category={val.category}
+                  list={foodList}
+                  removeItem={handleState}
+                  note={val.note}
+                  refresh={handleRefresh}
+                  refVal={refresh}
+                />
               </div>
-            );
-          } else {
-            return val.category === foodList[index - 1].category ? (
-              <MyListItem
-                key={`${val.name}-${index}`}
-                name={val.name}
-                category={val.category}
-                list={foodList}
-                removeItem={handleState}
-                note={val.note}
-                refresh={handleRefresh}
-                refVal={refresh}
-              />
-            ) : (
-              <div key={`zero-${index}-${val.name}`}>
-                <div className={styles.catDisplay}>{val.category}</div>
-                <div
-                  className={`${styles.foodItemContainer} ${styles.marginLeft10}`}
-                >
-                  <MyListItem
-                    key={`${val.name}-${index}`}
-                    name={val.name}
-                    category={val.category}
-                    list={foodList}
-                    removeItem={handleState}
-                    note={val.note}
-                    refresh={handleRefresh}
-                    refVal={refresh}
-                  />
-                </div>
+            </div>
+          );
+        } else {
+          return val.category === foodList[index - 1].category ? (
+            <MyListItem
+              key={`${val.name}-${index}`}
+              name={val.name}
+              category={val.category}
+              list={foodList}
+              removeItem={handleState}
+              note={val.note}
+              refresh={handleRefresh}
+              refVal={refresh}
+            />
+          ) : (
+            <div key={`zero-${index}-${val.name}`}>
+              <div className={styles.catDisplay}>{val.category}</div>
+              <div
+                className={`${styles.foodItemContainer} ${styles.marginLeft10}`}
+              >
+                <MyListItem
+                  key={`${val.name}-${index}`}
+                  name={val.name}
+                  category={val.category}
+                  list={foodList}
+                  removeItem={handleState}
+                  note={val.note}
+                  refresh={handleRefresh}
+                  refVal={refresh}
+                />
               </div>
-            );
-          }
-        })}
-      </div>
+            </div>
+          );
+        }
+      })}
       <AddFoodContainer
         refresh={handleRefresh}
         refVal={refresh}

@@ -28,7 +28,7 @@ interface IHeaderContext {
 }
 
 export const HeaderContext = createContext<IHeaderContext>({
-  headerText: "My Grocery List",
+  headerText: "Grocery Mate",
   setHeaderText: () => {},
 });
 
@@ -38,7 +38,7 @@ export const AuthContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [auth, setAuth] = useState<boolean>(false);
-  const [headerText, setHeaderText] = useState<string>("My Grocery List");
+  const [headerText, setHeaderText] = useState<string>("Grocery Mate");
 
   return (
     <html lang="en">

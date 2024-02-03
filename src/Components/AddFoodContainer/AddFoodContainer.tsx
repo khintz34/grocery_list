@@ -107,7 +107,7 @@ export default function AddFoodContainer(props: Props) {
     <main className={`${styles.main} ${containerHeight}`}>
       <div className={styles.dropContainer}>
         <h2 className={styles.h2Add}>Add More Items</h2>
-        <div onClick={handleToggle}>
+        <div onClick={handleToggle} className={styles.caretContainer}>
           {down ? <FaCaretDown /> : <FaCaretUp />}
         </div>
       </div>
