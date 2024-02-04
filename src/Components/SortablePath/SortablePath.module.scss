@@ -2,16 +2,18 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 5vh;
-  text-align: center;
   max-width: 50vw;
   font-size: 2.2vh;
-  height: 5vh;
+  min-height: 5vh;
   border: 1px solid lightgray;
   padding: 2px 12px;
   border-radius: 10px;
   box-shadow: 0 0.5rem 1.2rem hsl(0 0% 0% / 20%);
   margin-bottom: 1vh;
+
+  @media screen and (max-width: 999px) {
+    width: 35vw;
+  }
 }
 
 .main:hover {

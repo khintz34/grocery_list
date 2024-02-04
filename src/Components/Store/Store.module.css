@@ -48,6 +48,10 @@
 .pathItem {
   font-size: 2.3vh;
   width: 100%;
+
+  @media screen and (max-width: 999px) {
+    max-height: 70vh;
+  }
 }
 
 .btnContainer {
@@ -80,6 +84,14 @@
 .show {
   display: block;
   padding: 2vw 3vh;
+
+  @media screen and (max-width: 999px) {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2vw;
+    justify-content: center;
+  }
 }
 
 .expanded {
