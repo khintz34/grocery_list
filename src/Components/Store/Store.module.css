@@ -81,3 +81,21 @@
   display: block;
   padding: 2vw 3vh;
 }
+
+.expanded {
+  transition: height 2s ease;
+  border: 1px solid lightgray;
+  padding: 2px 12px;
+  border-radius: 0px;
+  overflow: hidden;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 10vh;
+  left: 0;
+  height: 80vh;
+  background-color: white;
+  /* flex-wrap: wrap; */
+}

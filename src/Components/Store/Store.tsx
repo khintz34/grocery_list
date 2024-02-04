@@ -24,6 +24,7 @@ interface Props {
 export default function Store(props: Props) {
   const [down, setDown] = useState(true);
   const [hidden, setHidden] = useState(`${styles.hide}`);
+  const [expand, setExpand] = useState(`${styles.contracted}`);
   const [listArray, setListArray] = useState<Array<any>>(props.store.path);
 
   useEffect(() => {
@@ -34,9 +35,11 @@ export default function Store(props: Props) {
     if (down) {
       setDown(false);
       setHidden(`${styles.show}`);
+      // setExpand(`${styles.expanded}`);
     } else {
       setDown(true);
       setHidden(`${styles.hide}`);
+      // setExpand(`${styles.contracted}`);
     }
   }
 
@@ -63,7 +66,7 @@ export default function Store(props: Props) {
 
   return (
     <main
-      className={`${styles.storeContainer}`}
+      className={`${styles.storeContainer} ${expand}`}
       key={`${props.store.store}-${props.index}`}
     >
       <div className={styles.nameContainer}>

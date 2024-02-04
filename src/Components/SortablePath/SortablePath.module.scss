@@ -1,11 +1,17 @@
 .main {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   height: 5vh;
   text-align: center;
-  max-width: 75vw;
+  max-width: 50vw;
   font-size: 2.2vh;
+  height: 5vh;
+  border: 1px solid lightgray;
+  padding: 2px 12px;
+  border-radius: 10px;
+  box-shadow: 0 0.5rem 1.2rem hsl(0 0% 0% / 20%);
+  margin-bottom: 1vh;
 }
 
 .main:hover {
@@ -14,6 +20,8 @@
 
 .main:active {
   cursor: grab;
+  height: 7vh;
+  gap: 1vw;
   .section {
     color: var(--secondary-background);
     @media screen and (min-width: 1000px) {
