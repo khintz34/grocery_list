@@ -1,7 +1,7 @@
 import { FoodListObj } from "@/assets/FoodList";
 import styles from "./Store.module.css";
 import { BsPlusCircle } from "react-icons/bs";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { DndContext, closestCenter } from "@dnd-kit/core";
 import {
@@ -12,6 +12,8 @@ import {
 import { SortablePath } from "../SortablePath/SortablePath";
 import { ref, set } from "firebase/database";
 import { db } from "@/assets/firebase";
+import { HeaderContext } from "@/contexts/authContext";
+import { IconContext } from "react-icons";
 
 interface Props {
   store: {
@@ -26,6 +28,7 @@ export default function Store(props: Props) {
   const [hidden, setHidden] = useState(`${styles.hide}`);
   const [expand, setExpand] = useState(`${styles.contracted}`);
   const [listArray, setListArray] = useState<Array<any>>(props.store.path);
+  const { headerText, setHeaderText } = useContext(HeaderContext);
 
   useEffect(() => {
     setListArray(props.store.path);
@@ -35,11 +38,13 @@ export default function Store(props: Props) {
     if (down) {
       setDown(false);
       setHidden(`${styles.show}`);
-      // setExpand(`${styles.expanded}`);
+      setExpand(`${styles.expanded}`);
+      setHeaderText(props.store.store);
     } else {
       setDown(true);
       setHidden(`${styles.hide}`);
-      // setExpand(`${styles.contracted}`);
+      setExpand(`${styles.contracted}`);
+      setHeaderText("My Store Paths");
     }
   }
 
@@ -72,8 +77,14 @@ export default function Store(props: Props) {
       <div className={styles.nameContainer}>
         <p className={styles.name}>{props.store.store}</p>
         <div className={styles.btnContainer}>
-          <div onClick={handleToggle}>
-            {down ? <FaCaretDown /> : <FaCaretUp />}
+          <div onClick={handleToggle} className={styles.caretContainer}>
+            <IconContext.Provider value={{ className: "scale" }}>
+              {down ? (
+                <FaCaretDown className={styles.scale} />
+              ) : (
+                <FaCaretUp className={styles.scale} />
+              )}
+            </IconContext.Provider>
           </div>
         </div>
       </div>

@@ -51,6 +51,7 @@
 
   @media screen and (max-width: 999px) {
     max-height: 70vh;
+    width: 100vw;
   }
 }
 
@@ -91,13 +92,12 @@
     flex-wrap: wrap;
     gap: 2vw;
     justify-content: center;
+    padding: 12px;
   }
 }
 
 .expanded {
-  transition: height 2s ease;
   border: 1px solid lightgray;
-  padding: 2px 12px;
   border-radius: 0px;
   overflow: hidden;
   width: 100vw;
@@ -107,7 +107,27 @@
   position: absolute;
   top: 10vh;
   left: 0;
-  height: 80vh;
+  height: 76vh;
   background-color: white;
-  /* flex-wrap: wrap; */
+
+  @media (max-width: 1000px) {
+    .nameContainer {
+      padding: 0.5vh 2vw;
+    }
+    .name {
+      color: var(--secondary-background);
+    }
+    .scale {
+      fill: var(--secondary-background);
+    }
+    .caretContainer {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid var(--primary-background);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
