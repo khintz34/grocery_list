@@ -24,8 +24,10 @@
 
 .main:active {
   cursor: grab;
-  height: 7vh;
   gap: 1vw;
+  @media (min-width: 1000px) {
+    height: 7vh;
+  }
   .section {
     color: var(--secondary-background);
     @media screen and (min-width: 1000px) {
