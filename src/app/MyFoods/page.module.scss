@@ -6,10 +6,11 @@
   gap: 2vh;
   background-color: var(--primary-background);
   width: 100vw;
-  padding: 10.5vh 0 0 0;
+  padding: 10vh 0 0 0;
 }
 
 .listContainer {
+  padding-top: 0.5vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -19,6 +20,9 @@
   overflow-y: scroll;
   padding-bottom: 2vh;
   width: 100vw;
+  @media (max-width: 1000px) {
+    padding-bottom: 10vh;
+  }
 }
 
 .foodContainer {
