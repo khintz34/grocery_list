@@ -4,7 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   gap: 2vh;
-  min-height: 100vh;
+  // min-height: 100vh;
   background-color: var(--primary-background);
   width: 100vw;
   padding: 10.5vh 0;
@@ -16,8 +16,9 @@
   justify-content: flex-start;
   align-items: center;
   gap: 1.5vh;
-  max-height: 95vh;
-  overflow: scroll;
+  height: 81.5vh;
+  overflow-y: scroll;
+  padding-bottom: 2vh;
 }
 
 .foodContainer {
