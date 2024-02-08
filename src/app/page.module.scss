@@ -16,12 +16,11 @@
   gap: 1.2vh;
   overflow-y: scroll;
   padding-bottom: 10vh;
-
-  // add height if currentStore should be fixed
+  min-height: 82vh;
 
   @media (max-width: 1000px) {
     width: 100vw;
-    padding-bottom: 15vh;
+    padding-bottom: 10vh;
   }
 }
 
