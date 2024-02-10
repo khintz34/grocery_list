@@ -6,21 +6,21 @@
   gap: 2vh;
   background-color: var(--primary-background);
   width: 100vw;
-  padding: 10vh 0 0 0;
+  padding: 10.5vh 0 0 0;
   overflow-x: hidden;
 }
 
 .listContainer {
-  padding-top: 0.5vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   gap: 1.5vh;
-  height: 82vh;
   overflow-y: scroll;
   padding-bottom: 2vh;
+  min-height: 82vh;
   width: 100vw;
+
   @media (max-width: 1000px) {
     padding-bottom: 10vh;
   }
