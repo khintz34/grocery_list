@@ -10,13 +10,15 @@
 
 .foodItemContainer {
   transition: height 2s ease;
-  border: 2px solid white;
-  border-radius: 20px;
   overflow: hidden;
   width: 90vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border: 1px solid lightgray;
+  padding: 2px 12px;
+  border-radius: 10px;
+  box-shadow: 0 0.5rem 1.2rem hsl(0 0% 0% / 20%);
 }
 
 .nameContainer {
@@ -46,20 +48,45 @@
 .btn {
   color: black;
   padding: 0.3vh 0.8vh;
-  border-radius: 20px;
-  border: 1px solid var(--secondary-background);
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  height: 3vh;
+  overflow: hidden;
+  white-space: nowrap;
+  transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  position: relative;
+  background-color: lightgray;
 }
 
-.btn:hover {
-  cursor: pointer;
-  background-color: black;
-  color: white;
+.btn:after {
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px white;
+}
+
+.btn:active:after {
+  box-shadow: 0 0 0 0 white;
+  position: absolute;
+  border-radius: 4em;
+  left: 0;
+  top: 0;
+  opacity: 1;
+  transition: 0s;
 }
 
 .btn:active {
-  color: white;
-  background-color: var(--primary-background);
-  transform: scale(1.1);
+  top: 1px;
+  background-color: var(--secondary-background);
+  color: var(--primary-background);
 }
 
 .delete {
