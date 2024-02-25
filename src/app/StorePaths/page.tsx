@@ -68,6 +68,7 @@ export default function Home() {
               store={store}
               index={index}
               key={`store-${store.store}-${index}`}
+              handleRefresh={handleRefresh}
             />
           );
         })}

@@ -19,6 +19,7 @@ interface Props {
     path: Array<string>;
   };
   index: number;
+  handleRefresh: Function;
 }
 
 export default function Store(props: Props) {
@@ -43,6 +44,7 @@ export default function Store(props: Props) {
       setHidden(`${styles.hide}`);
       setExpand(`${styles.contracted}`);
       setHeaderText("My Store Paths");
+      props.handleRefresh();
     }
   }
 
