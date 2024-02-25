@@ -21,7 +21,7 @@
 }
 
 .storeContainer {
-  transition: height 2s ease;
+  transition: all 0.5s ease;
   border: 2px solid white;
   border-radius: 20px;
   overflow: hidden;
@@ -29,6 +29,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+
+  @media (max-width: 1000px) {
+    height: 8vh;
+  }
 }
 
 .nameContainer {
@@ -102,7 +107,7 @@
 
 .expanded {
   @media screen and (max-width: 999px) {
-    border: 1px solid lightgray;
+    border: 2px solid white;
     border-radius: 0px;
     overflow: hidden;
     width: 100vw;
@@ -114,11 +119,13 @@
     left: 0;
     height: 76vh;
     background-color: white;
-    /* Animate all changes */
-    -webkit-transition: width 0.5s ease;
-    -moz-transition: width 0.5s ease;
-    -o-transition: width 0.5s ease;
-    transition: width 0.5s ease;
+    z-index: 10;
+    opacity: 1;
+    // /* Animate all changes */
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
   }
 
   @media (max-width: 1000px) {

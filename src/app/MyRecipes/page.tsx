@@ -4,12 +4,13 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./page.module.scss";
 import { HeaderContext } from "@/contexts/authContext";
 import { FoodListObj } from "@/assets/FoodList";
-import { child, ref as databaseRef, onValue } from "firebase/database";
+import { ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../../assets/firebase";
-import MyListItem from "@/Components/MyListItem/MyListItem";
-import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { RecipeObj } from "@/assets/RecipeObj";
 import Recipe from "@/Components/Recipe/Recipe";
+
+//todo fix page height so it doesnt scroll.
+//todo hide scroll bar on mobile
 
 export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);

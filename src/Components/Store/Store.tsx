@@ -1,6 +1,4 @@
-import { FoodListObj } from "@/assets/FoodList";
-import styles from "./Store.module.css";
-import { BsPlusCircle } from "react-icons/bs";
+import styles from "./Store.module.scss";
 import { useContext, useEffect, useState } from "react";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import { DndContext, closestCenter } from "@dnd-kit/core";

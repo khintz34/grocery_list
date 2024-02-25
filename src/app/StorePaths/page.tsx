@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import { ref as databaseRef, onValue } from "firebase/database";
 import { db } from "../../assets/firebase";
 import { useState, useEffect, useContext } from "react";
@@ -63,7 +63,6 @@ export default function Home() {
     <main className={styles.main}>
       <div className={styles.paths}>
         {shoppingOrderArray.map((store, index) => {
-          console.log(store);
           return (
             <Store
               store={store}
