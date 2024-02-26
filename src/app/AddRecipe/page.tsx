@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef, useContext } from "react";
 import styles from "./page.module.scss";
-import { CategoryList } from "../../assets/CategoryList";
-import { getDatabase, push, ref, set, remove } from "firebase/database";
+import { ref, set } from "firebase/database";
 import { db } from "../../assets/firebase";
 import { FoodListObj } from "@/assets/FoodList";
 import RecipeItemAdd from "@/Components/RecipeItemAdd/RecipeItemAdd";

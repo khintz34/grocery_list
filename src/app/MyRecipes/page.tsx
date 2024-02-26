@@ -9,9 +9,6 @@ import { db } from "../../assets/firebase";
 import { RecipeObj } from "@/assets/RecipeObj";
 import Recipe from "@/Components/Recipe/Recipe";
 
-//todo fix page height so it doesnt scroll.
-//todo hide scroll bar on mobile
-
 export default function MyRecipes() {
   const { headerText, setHeaderText } = useContext(HeaderContext);
   const [foodList, setFoodList] = useState<Array<RecipeObj>>();

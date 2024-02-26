@@ -2,7 +2,6 @@
 import styles from "./RecipeItemAdd.module.scss";
 import React, { useEffect, useState } from "react";
 import { CategoryList } from "../../assets/CategoryList";
-import { getDatabase, push, ref, set, remove } from "firebase/database";
 
 interface Props {
   num: number;

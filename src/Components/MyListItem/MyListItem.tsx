@@ -4,9 +4,8 @@ import styles from "./MyListItem.module.scss";
 import { BsCheckCircle } from "react-icons/bs";
 import { TfiWrite } from "react-icons/tfi";
 import { db } from "../../assets/firebase";
-import { getDatabase, push, ref, set, remove } from "firebase/database";
+import { getDatabase, ref, set, remove } from "firebase/database";
 import { FoodListObj } from "@/assets/FoodList";
-import { BooleanLiteral } from "typescript";
 import { IconContext } from "react-icons";
 
 interface Props {
