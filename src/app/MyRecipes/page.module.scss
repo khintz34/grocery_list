@@ -9,6 +9,11 @@
   gap: 1.5vh;
 
   @media screen and (max-width: 768px) {
-    min-height: 88vh;
+    min-height: 79vh;
+    padding-bottom: 10vh;
   }
+}
+
+.main::-webkit-scrollbar {
+  display: none;
 }
