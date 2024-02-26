@@ -1,0 +1,39 @@
+.main {
+  margin-bottom: 1.5vh;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 2vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+  box-shadow: 0 0.5rem 1.2rem hsla(0, 0%, 0%, 0.2);
+
+  @media screen and (min-width: 768px) {
+    width: 70vw;
+  }
+}
+
+.label {
+  width: 35vw;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.input {
+  color: black;
+  width: 42vw;
+  border-radius: 10px;
+  height: 3.5vh;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 1px 1px 5px #555 inset;
+  padding-left: 10px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }
+}

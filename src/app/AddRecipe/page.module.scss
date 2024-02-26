@@ -24,11 +24,25 @@
   display: flex;
   flex-direction: row;
   padding: 0 2vh;
+
+  @media screen and (min-width: 768px) {
+    width: 70vw;
+  }
 }
 
 .input {
   color: black;
-  width: 37vw;
+  width: 42vw;
+  border-radius: 10px;
+  height: 3.5vh;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 1px 1px 5px #555 inset;
+  padding-left: 10px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 .buttonContainer {
@@ -36,23 +50,26 @@
   bottom: 0;
   left: 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1vh;
+  gap: 5vw;
   height: 10vh;
   width: 100vw;
   padding: 0;
   background-color: var(--secondary-background);
+
+  @media screen and (max-width: 767px) {
+    flex-direction: column;
+    gap: 1vh;
+  }
 }
 
 .button {
   color: black;
   width: 50vw;
-}
-
-@media screen and (max-width: 767px) {
-  .input {
-    font-size: 16px;
-  }
+  max-width: 250px;
+  border-radius: 20px;
+  border: none;
+  padding: 5px;
 }
