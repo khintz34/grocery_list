@@ -9,6 +9,16 @@ import { HeaderContext } from "@/contexts/authContext";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import MyListItem from "@/Components/MyListItem/MyListItem";
 import { StoreDropdown } from "@/Components/StoreDropdown/StoreDropdown";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { AuthContext } from "@/contexts/authContext";
+
+//! todo create sign in page and move auth stuff there
 
 export default function Home() {
   const [foodList, setFoodList] = useState<Array<FoodListObj>>();
@@ -20,6 +30,12 @@ export default function Home() {
   );
   const [stores, setStores] = useState<Array<string>>([]);
   const [currentStore, setCurrentStore] = useState<string>("ALDI");
+
+  // AUTH STUFF
+  const { auth, setAuth } = useContext(AuthContext);
+  const [password, setPassword] = useState<string>("");
+  const [signInError, setSignInError] = useState<boolean>(false);
+  const [currentAuth, setCurrentAuth] = useState(false);
 
   useEffect(() => {
     getStoreList();
@@ -120,6 +136,29 @@ export default function Home() {
     setShoppingOrder(value);
     getUserData(value);
   }
+
+  const signUserIn = () => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, "khintz34@gmail.com", password)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        setAuth(true);
+        setSignInError(false);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setAuth(false);
+        setSignInError(true);
+      });
+  };
+
+  useEffect(() => {
+    if (auth) {
+      setCurrentAuth(true);
+    }
+  }, []);
 
   return (
     <main className={styles.main}>

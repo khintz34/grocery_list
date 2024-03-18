@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { CategoryList } from "../CategoryList";
+import React, { useState } from "react";
+import { CategoryList } from "../../assets/CategoryList";
 import styles from "./Dropdown.module.scss";
 import { getDatabase, ref, set, remove } from "firebase/database";
 import { BsPlusCircle, BsTrash } from "react-icons/bs";

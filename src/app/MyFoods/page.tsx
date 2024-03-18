@@ -5,7 +5,7 @@ import { ref as databaseRef, onValue, ref } from "firebase/database";
 import { db } from "../../assets/firebase";
 import { useState, useEffect, useContext } from "react";
 import { FoodListObj } from "@/assets/FoodList";
-import Dropdown from "../../assets/Dropdown/Dropdown";
+import Dropdown from "@/Components/Dropdown/Dropdown";
 import AddFoodContainer from "@/Components/AddFoodContainer/AddFoodContainer";
 import { HeaderContext } from "@/contexts/authContext";
 
