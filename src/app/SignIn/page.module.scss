@@ -1,0 +1,71 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10vh 0 0 0;
+  height: 100vh;
+  background-color: var(--primary-background);
+  gap: 1.5vh;
+}
+
+.form {
+  border: 1px solid white;
+  border-radius: 8px;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+    padding: 0 24px;
+    height: 30vh;
+  }
+}
+
+.label {
+  width: 8vw;
+  font-size: 20px;
+
+  @media screen and (max-width: 768px) {
+    width: 32vw;
+  }
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.input {
+  color: black;
+  width: 45ch;
+  border-radius: 8px;
+  height: 3.5vh;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 1px 1px 5px #555 inset;
+  padding-left: 10px;
+
+  @media screen and (max-width: 767px) {
+    font-size: 16px;
+    width: 20ch;
+  }
+}
+
+.btn {
+  width: 10vw;
+  font-size: 20px;
+  color: black;
+  border-radius: 8px;
+  padding: 0.5vh;
+
+  @media screen and (max-width: 767px) {
+    width: 25vw;
+  }
+}
