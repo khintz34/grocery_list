@@ -7,7 +7,7 @@ import { getDatabase } from "firebase/database";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyBuofcSxEVVETSdVPwfrwX1DmqzLPq41vU",
   authDomain: "grocery-list-54ddf.firebaseapp.com",
   databaseURL: "https://grocery-list-54ddf-default-rtdb.firebaseio.com",
