@@ -9,13 +9,14 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from "@/contexts/authContext";
+import { AuthContext, UsernameContext } from "@/contexts/authContext";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "@/assets/firebase";
 
 export default function SignIn() {
   const [email, setEmail] = useState<string>("");
   const { auth, setAuth } = useContext(AuthContext);
+  const { username, setUsername } = useContext(UsernameContext);
   const [password, setPassword] = useState<string>("");
   const [signInError, setSignInError] = useState<boolean>(false);
   const [currentAuth, setCurrentAuth] = useState(false);
@@ -29,7 +30,11 @@ export default function SignIn() {
         const user = userCredential.user;
         setAuth(true);
         setSignInError(false);
+        setUsername(email);
         console.log("signed in");
+
+        // todo naviate to home page without erasing auth
+        location.href = "http://localhost:3000/";
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -43,6 +48,7 @@ export default function SignIn() {
             .then((userCredential) => {
               // Signed up
               const user = userCredential.user;
+              console.log("created account");
               // ...
             })
             .catch((error) => {
@@ -96,7 +102,6 @@ export default function SignIn() {
           type="submit"
           className={styles.btn}
           onClick={(e) => {
-            //todo replace this with sign in functionality from main page
             e.preventDefault();
             signUserIn();
           }}

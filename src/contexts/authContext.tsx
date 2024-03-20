@@ -22,6 +22,16 @@ export const AuthContext = createContext<IAuthContext>({
   setAuth: () => {},
 });
 
+interface IUsernameContext {
+  username: string;
+  setUsername: Dispatch<SetStateAction<string>>;
+}
+
+export const UsernameContext = createContext<IUsernameContext>({
+  username: "",
+  setUsername: () => {},
+});
+
 interface IHeaderContext {
   headerText: string;
   setHeaderText: Dispatch<SetStateAction<string>>;
@@ -39,15 +49,18 @@ export const AuthContextProvider = ({
 }) => {
   const [auth, setAuth] = useState<boolean>(false);
   const [headerText, setHeaderText] = useState<string>("Grocery Mate");
+  const [username, setUsername] = useState<string>("");
 
   return (
     <html lang="en">
       <body className={poppins.className}>
         <AuthContext.Provider value={{ auth, setAuth }}>
-          <HeaderContext.Provider value={{ headerText, setHeaderText }}>
-            <Header />
-            {children}
-          </HeaderContext.Provider>
+          <UsernameContext.Provider value={{ username, setUsername }}>
+            <HeaderContext.Provider value={{ headerText, setHeaderText }}>
+              <Header />
+              {children}
+            </HeaderContext.Provider>
+          </UsernameContext.Provider>
         </AuthContext.Provider>
       </body>
     </html>
